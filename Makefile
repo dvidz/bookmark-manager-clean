@@ -66,7 +66,7 @@ psalm:
 
 .PHONY: phpunit
 phpunit:
-	./vendor/bin/phpunit --testsuite app
+	./vendor/bin/phpunit --testsuite Dvidz
 
 .PHONY: behat
 behat:

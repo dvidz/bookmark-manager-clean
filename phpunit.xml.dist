@@ -18,7 +18,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="App">
+        <testsuite name="Dvidz">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
