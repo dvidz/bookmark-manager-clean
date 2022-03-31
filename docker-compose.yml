@@ -11,6 +11,7 @@ services:
     environment:
       COMPOSER_HOME: /tmp/composer
   mysql:
+    container_name: dvidz-mysql
     image: mysql:5.7
     ports:
       - "3307:3306"
