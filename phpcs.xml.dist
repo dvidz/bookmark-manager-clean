@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+        <rule ref="./vendor/escapestudios/symfony2-coding-standard/Symfony">
+            <exclude name="Symfony.Commenting.License.Warning"/>
+        </rule>
+
+        <arg name="basepath" value="."/>
+        <arg name="cache" value=".phpcs-cache"/>
+        <arg name="colors"/>
+        <arg name="extensions" value="php"/>
+
+        <exclude-pattern>src/Kernel.php</exclude-pattern>
+        <exclude-pattern>tests/Behat/DemoContext.php</exclude-pattern>
+
+        <file>bin/</file>
+        <file>config/</file>
+        <file>public/</file>
+        <file>src/</file>
+        <file>tests/</file>
+
+</ruleset>
