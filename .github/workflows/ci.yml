@@ -31,3 +31,5 @@ jobs:
 
       - name: Run the tests
         run: make tests
+        env:
+          DATABASE_URL: '####'
