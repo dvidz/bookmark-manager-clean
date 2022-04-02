@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Controller;
 
 use App\Dvidz\Rest\Manager\BookmarkManager;
+use App\Dvidz\Rest\Repository\BookmarkRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,6 +38,6 @@ class BookmarkController extends AbstractController
      */
     public function bookmark(): JsonResponse
     {
-        return new JsonResponse();
+        return new JsonResponse([], Response::HTTP_OK);
     }
 }
