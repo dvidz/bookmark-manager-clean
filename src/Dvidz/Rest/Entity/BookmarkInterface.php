@@ -27,13 +27,6 @@ interface BookmarkInterface
     public function getProviderName(): string;
 
     /**
-     * @param string $providerName
-     *
-     * @return $this
-     */
-    public function setProviderName(string $providerName): self;
-
-    /**
      * @return string
      */
     public function getLinkTitle(): string;

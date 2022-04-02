@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\This;
 
 /**
  * @ORM\MappedSuperclass
@@ -19,7 +18,7 @@ abstract class AbstractBookmark implements BookmarkInterface
     protected string $url;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @var string
      */
     protected string $providerName;
 
@@ -42,6 +41,16 @@ abstract class AbstractBookmark implements BookmarkInterface
      * @ORM\Column(type="date_immutable", length=100, nullable=false)
      */
     protected \DateTimeImmutable $publicationDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeLink::class, inversedBy="bookmarks")
+     */
+    protected TypeLink $typeLink;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=LinkProvider::class, inversedBy="bookmarks")
+     */
+    protected LinkProvider $linkProvider;
 
     /**
      * @return string
@@ -68,19 +77,7 @@ abstract class AbstractBookmark implements BookmarkInterface
      */
     public function getProviderName(): string
     {
-        return $this->providerName;
-    }
-
-    /**
-     * @param string $providerName
-     *
-     * @return $this
-     */
-    public function setProviderName(string $providerName): self
-    {
-        $this->providerName = $providerName;
-
-        return $this;
+        return $this->getLinkProvider()->getProviderName();
     }
 
     /**
@@ -159,6 +156,46 @@ abstract class AbstractBookmark implements BookmarkInterface
     public function setPublicationDate(\DateTimeImmutable $publicationDate): self
     {
         $this->publicationDate = $publicationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return TypeLink|null
+     */
+    public function getTypeLink(): ?TypeLink
+    {
+        return $this->typeLink;
+    }
+
+    /**
+     * @param TypeLink|null $typeLink
+     *
+     * @return $this
+     */
+    public function setTypeLink(?TypeLink $typeLink): self
+    {
+        $this->typeLink = $typeLink;
+
+        return $this;
+    }
+
+    /**
+     * @return LinkProvider|null
+     */
+    public function getLinkProvider(): ?LinkProvider
+    {
+        return $this->linkProvider;
+    }
+
+    /**
+     * @param LinkProvider|null $linkProvider
+     *
+     * @return $this
+     */
+    public function setLinkProvider(?LinkProvider $linkProvider): self
+    {
+        $this->linkProvider = $linkProvider;
 
         return $this;
     }
