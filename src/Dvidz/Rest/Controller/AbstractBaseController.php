@@ -47,4 +47,14 @@ abstract class AbstractBaseController extends AbstractController
     {
         return JsonApiResponse::createErrorResponse($data, $httpStatus);
     }
+
+    /**
+     * @param int $httpStatus
+     *
+     * @return ApiResponseInterface
+     */
+    public function createEmptyResponse(int $httpStatus): ApiResponseInterface
+    {
+        return JsonApiResponse::createErrorResponse([], $httpStatus);
+    }
 }

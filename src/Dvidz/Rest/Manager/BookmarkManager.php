@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Manager;
 
 use App\Dvidz\Rest\Entity\BookmarkInterface;
+use App\Dvidz\Rest\Exception\BookmarkNotFoundException;
 use App\Dvidz\Rest\Exception\MalformedUrlException;
 use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Model\BookmarkViewModel;
@@ -115,5 +116,21 @@ class BookmarkManager
         }
 
         return $listViewModel;
+    }
+
+    /**
+     * @param BookmarkInterface|null $bookmark
+     *
+     * @return void
+     *
+     * @throws BookmarkNotFoundException
+     */
+    public function removeBookmark(?BookmarkInterface $bookmark): void
+    {
+        if (null === $bookmark) {
+            throw new BookmarkNotFoundException();
+        }
+
+        $this->bookmarkService->removeBookmark($bookmark);
     }
 }

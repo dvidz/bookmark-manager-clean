@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Service;
 
 use App\Dvidz\Rest\Entity\Bookmark;
+use App\Dvidz\Rest\Entity\BookmarkInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -31,4 +32,11 @@ interface BookmarkServiceInterface
      * @return array
      */
     public function findAll(): array;
+
+    /**
+     * @param BookmarkInterface $bookmark
+     *
+     * @return mixed
+     */
+    public function removeBookmark(BookmarkInterface $bookmark);
 }

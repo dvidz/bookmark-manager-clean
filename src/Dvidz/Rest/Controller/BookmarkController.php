@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Controller;
 
+use App\Dvidz\Rest\Entity\BookmarkInterface;
+use App\Dvidz\Rest\Exception\BookmarkNotFoundException;
 use App\Dvidz\Rest\Exception\MalformedUrlException;
 use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Manager\BookmarkManager;
@@ -75,5 +77,23 @@ class BookmarkController extends AbstractBaseController
         }
 
         return $response;
+    }
+
+    /**
+     * @Route("/bookmark/{id}", name="api_bookmark_delete", methods={"GET"})
+     *
+     * @param BookmarkInterface $bookmark
+     *
+     * @return ApiResponseInterface
+     */
+    public function deleteBookmark(BookmarkInterface $bookmark): ApiResponseInterface
+    {
+        try {
+            $this->bookmarkManager->removeBookmark($bookmark);
+        } catch (BookmarkNotFoundException $e) {
+            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->createEmptyResponse(Response::HTTP_NO_CONTENT);
     }
 }
