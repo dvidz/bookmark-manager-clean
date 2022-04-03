@@ -12,6 +12,28 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class JsonApiResponse extends AbstractBaseApiResponse implements ApiResponseInterface, ApiErrorResponseInterface
 {
     /**
+     * @param BookmarkViewModelInterface[] $viewModels
+     * @param int                          $httpStatus
+     *
+     * @return ApiResponseInterface
+     */
+    public static function createListResponse(array $viewModels, int $httpStatus): ApiResponseInterface
+    {
+        $jsonApiResponse = new self();
+        $jsonApiResponse->headers = new ResponseHeaderBag(
+            [
+                'Content-Type' => 'application/json; charset=utf-8',
+            ]
+        );
+
+        $jsonApiResponse->setContent($jsonApiResponse->serializer->serialize($viewModels, 'json'));
+        $jsonApiResponse->setStatusCode($httpStatus);
+        $jsonApiResponse->setProtocolVersion('1.0');
+
+        return $jsonApiResponse;
+    }
+
+    /**
      * @param ViewModelInterface $viewModel
      * @param int                $httpStatus
      *
