@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Service;
 
 use App\Dvidz\Rest\Entity\Bookmark;
+use App\Dvidz\Rest\Entity\BookmarkInterface;
 use App\Dvidz\Rest\Repository\BookmarkRepository;
 
 /**
@@ -51,5 +52,15 @@ class BookmarkService implements BookmarkServiceInterface
     public function findAll(): array
     {
         return $this->bookmarkRepository->findAll();
+    }
+
+    /**
+     * @param BookmarkInterface $bookmark
+     *
+     * @return void
+     */
+    public function removeBookmark(BookmarkInterface $bookmark): void
+    {
+        $this->bookmarkRepository->removeBookmark($bookmark);
     }
 }
