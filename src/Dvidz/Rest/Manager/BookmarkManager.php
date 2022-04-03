@@ -131,7 +131,9 @@ class BookmarkManager
             throw new BookmarkNotFoundException();
         }
 
-        $bookmark = $this->bookmarkService->findOneBookmarkBy(['id' => $url]);
+        if (null === $bookmark = $this->bookmarkService->findOneBookmarkBy(['id' => $url])) {
+            throw new BookmarkNotFoundException();
+        }
 
         $this->bookmarkService->removeBookmark($bookmark);
     }
