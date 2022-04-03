@@ -10,7 +10,7 @@ use App\Dvidz\Rest\Exception\MediaTypeException;
 /**
  * Class BookmarkViewModel.
  */
-class BookmarkViewModel extends BookmarkModelDto implements BookmarkViewModelInterface, ViewModelInterface
+class BookmarkViewModel extends BookmarkModelDto implements BookmarkViewModelInterface
 {
     /**
      * @var string

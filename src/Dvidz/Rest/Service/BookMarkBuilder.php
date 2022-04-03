@@ -150,7 +150,7 @@ class BookMarkBuilder implements BookmarkBuilderInterface
             ->setLinkProvider($linkProvider)
             ->setTypeLink($typeLink)
             ->setLinkAuthor((string) $bookmarkModelDto->linkAuthor)
-            ->setLinkTitle((string) $bookmarkModelDto->linkAuthor)
+            ->setLinkTitle((string) $bookmarkModelDto->linkTitle)
             ->setPublicationDate(new \DateTimeImmutable((string) $bookmarkModelDto->publishedDate))
             ->setCreatedAt(new \DateTimeImmutable());
 

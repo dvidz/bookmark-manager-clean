@@ -119,17 +119,19 @@ class BookmarkManager
     }
 
     /**
-     * @param BookmarkInterface|null $bookmark
+     * @param string|null $url
      *
      * @return void
      *
      * @throws BookmarkNotFoundException
      */
-    public function removeBookmark(?BookmarkInterface $bookmark): void
+    public function removeBookmark(?string $url): void
     {
-        if (null === $bookmark) {
+        if (empty($url)) {
             throw new BookmarkNotFoundException();
         }
+
+        $bookmark = $this->bookmarkService->findOneBookmarkBy(['id' => $url]);
 
         $this->bookmarkService->removeBookmark($bookmark);
     }
