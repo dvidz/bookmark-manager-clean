@@ -25,4 +25,12 @@ class Bookmark extends AbstractBookmark
     {
         $this->id = $url;
     }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->id;
+    }
 }

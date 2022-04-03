@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Manager;
 
 use App\Dvidz\Rest\Entity\BookmarkInterface;
+use App\Dvidz\Rest\Exception\MalformedUrlException;
 use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Model\BookmarkViewModel;
 use App\Dvidz\Rest\Model\BookmarkViewModelInterface;
 use App\Dvidz\Rest\Service\BookmarkBuilderInterface;
 use App\Dvidz\Rest\Service\BookmarkServiceInterface;
 use App\Dvidz\Rest\Service\ScrapperInterface;
+use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 /**
  * Class BookmarkManager.
@@ -48,11 +51,19 @@ class BookmarkManager
      * @param string $linkUrl
      *
      * @return BookmarkInterface
+     *
+     * @throws MalformedUrlException
      */
     public function bookmark(string $linkUrl): BookmarkInterface
     {
+        try {
+            Assertion::url($linkUrl);
+        } catch (AssertionFailedException $e) {
+            throw new MalformedUrlException();
+        }
+
         // Check if link was already bookmarked.
-        if(empty($bookmark = $this->bookmarkService->findOneBookmarkBy(['id' => $linkUrl]))) {
+        if (empty($bookmark = $this->bookmarkService->findOneBookmarkBy(['id' => $linkUrl]))) {
             // Extract link data to the DTO.
             $dto = $this->scrapper->scrap($linkUrl);
 

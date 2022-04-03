@@ -16,7 +16,7 @@ abstract class AbstractBaseController extends AbstractController
 {
     /**
      * @param ViewModelInterface $viewModel
-     * @param int   $httpStatus
+     * @param int                $httpStatus
      *
      * @return ApiResponseInterface
      */

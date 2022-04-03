@@ -17,6 +17,9 @@ use App\Dvidz\Rest\Repository\LinkProviderRepository;
 use App\Dvidz\Rest\Repository\VideoSizeRepository;
 use App\Dvidz\Rest\Repository\TypeLinkRepository;
 
+/**
+ * Class BookMarkBuilder.
+ */
 class BookMarkBuilder implements BookmarkBuilderInterface
 {
     /**
@@ -45,7 +48,8 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      * @param VideoSizeRepository    $videoSizeRepository
      * @param ImageSizeRepository    $imageSizeRepository
      */
-    public function __construct(LinkProviderRepository $linkProviderRepository, TypeLinkRepository $typeLinkRepository, VideoSizeRepository $videoSizeRepository, ImageSizeRepository $imageSizeRepository) {
+    public function __construct(LinkProviderRepository $linkProviderRepository, TypeLinkRepository $typeLinkRepository, VideoSizeRepository $videoSizeRepository, ImageSizeRepository $imageSizeRepository)
+    {
         $this->linkProviderRepository = $linkProviderRepository;
         $this->typeLinkRepository = $typeLinkRepository;
         $this->videoSizeRepository = $videoSizeRepository;
@@ -57,7 +61,8 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      *
      * @return LinkProviderInterface
      */
-    public function buildLinkProvider(BookmarkModelDto $bookmarkModelDto): LinkProviderInterface {
+    public function buildLinkProvider(BookmarkModelDto $bookmarkModelDto): LinkProviderInterface
+    {
         // Check if linkProvider exist.
         if (!empty($linkProvider = $this->linkProviderRepository->findOneBy(['providerName' => $bookmarkModelDto->providerName]))) {
             return $linkProvider;
@@ -72,9 +77,10 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      *
      * @return TypeLinkInterface
      */
-    public function buildTypeLink(BookmarkModelDto $bookmarkModelDto): TypeLinkInterface {
+    public function buildTypeLink(BookmarkModelDto $bookmarkModelDto): TypeLinkInterface
+    {
         // Check if TypeLink is already registered in database.
-        if (!empty($typeLink = $this->typeLinkRepository->findOneBy(['typeLinkName' => $bookmarkModelDto->type]))){
+        if (!empty($typeLink = $this->typeLinkRepository->findOneBy(['typeLinkName' => $bookmarkModelDto->type]))) {
             return $typeLink;
         }
 
@@ -89,10 +95,11 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      *
      * @throws MediaTypeException
      */
-    public function buildMediaSize(BookmarkModelDto $bookmarkModelDto): MediaSizeInterface {
+    public function buildMediaSize(BookmarkModelDto $bookmarkModelDto): MediaSizeInterface
+    {
         // TODO : Add a strategy pattern in order to make this smell code smelling like a flower ;)>.
         if ('video' === $bookmarkModelDto->type) {
-            if(!empty($videoSize = $this->videoSizeRepository->findOneBy([
+            if (!empty($videoSize = $this->videoSizeRepository->findOneBy([
                 'width' => $bookmarkModelDto->videoWidth,
                 'height' => $bookmarkModelDto->videoHeight,
                 'duration' => $bookmarkModelDto->videoDuration,
@@ -101,8 +108,8 @@ class BookMarkBuilder implements BookmarkBuilderInterface
             }
 
             return (new VideoSize())
-                ->setWidth($bookmarkModelDto->videoWidth)
-                ->setHeight($bookmarkModelDto->videoHeight)
+                ->setWidth((float) $bookmarkModelDto->videoWidth)
+                ->setHeight((float) $bookmarkModelDto->videoHeight)
                 ->setDuration($bookmarkModelDto->videoDuration);
         }
 
@@ -115,13 +122,13 @@ class BookMarkBuilder implements BookmarkBuilderInterface
             }
 
             return (new ImageSize())
-                ->setWidth($bookmarkModelDto->imageWidth)
-                ->setHeight($bookmarkModelDto->imageHeight);
+                ->setWidth((float) $bookmarkModelDto->imageWidth)
+                ->setHeight((float) $bookmarkModelDto->imageHeight);
         }
 
         throw new MediaTypeException(sprintf(
             'Can not handle MediaSize with this bookmark type %s',
-            $bookmarkModelDto->type
+            $bookmarkModelDto->type ?? 'null'
         ));
     }
 
@@ -139,19 +146,19 @@ class BookMarkBuilder implements BookmarkBuilderInterface
         $mediaSize = $this->buildMediaSize($bookmarkModelDto);
         $mediaSize->addTypeLink($typeLink);
 
-        $bookmark = (new Bookmark($bookmarkModelDto->url))
+        $bookmark = (new Bookmark((string) $bookmarkModelDto->url))
             ->setLinkProvider($linkProvider)
             ->setTypeLink($typeLink)
-            ->setLinkAuthor($bookmarkModelDto->linkAuthor)
-            ->setLinkTitle($bookmarkModelDto->linkAuthor)
-            ->setPublicationDate(new \DateTimeImmutable($bookmarkModelDto->publishedDate))
+            ->setLinkAuthor((string) $bookmarkModelDto->linkAuthor)
+            ->setLinkTitle((string) $bookmarkModelDto->linkAuthor)
+            ->setPublicationDate(new \DateTimeImmutable((string) $bookmarkModelDto->publishedDate))
             ->setCreatedAt(new \DateTimeImmutable());
 
-        if ('video' == $typeLink->getTypeLinkName()) {
+        if ('video' === $typeLink->getTypeLinkName()) {
             $bookmark->setVideoSize($mediaSize);
         }
 
-        if ('photo' == $typeLink->getTypeLinkName()) {
+        if ('photo' === $typeLink->getTypeLinkName()) {
             $bookmark->setImageSize($mediaSize);
         }
 

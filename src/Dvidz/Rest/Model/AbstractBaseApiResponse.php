@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Class BaseApiResponse.
  */
-abstract class BaseApiResponse extends Response
+abstract class AbstractBaseApiResponse extends Response
 {
     /**
      * @var Serializer

@@ -9,7 +9,12 @@ use App\Dvidz\Rest\Entity\BookmarkInterface;
 /**
  * Interface BookmarkViewModelInterface.
  */
-interface BookmarkViewModelInterface
+interface BookmarkViewModelInterface extends ViewModelInterface
 {
-    public static function getViewModel(BookmarkInterface $bookmark): self;
+    /**
+     * @param BookmarkInterface $bookmark
+     *
+     * @return BookmarkViewModelInterface
+     */
+    public static function getViewModel(BookmarkInterface $bookmark): BookmarkViewModelInterface;
 }

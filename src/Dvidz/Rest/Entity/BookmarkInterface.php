@@ -66,4 +66,19 @@ interface BookmarkInterface
      * @return $this
      */
     public function setPublicationDate(\DateTimeImmutable $publicationDate): self;
+
+    /**
+     * @return TypeLinkInterface|null
+     */
+    public function getTypeLink(): ?TypeLinkInterface;
+
+    /**
+     * @return VideoSizeInterface
+     */
+    public function getVideoSize(): VideoSizeInterface;
+
+    /**
+     * @return ImageSizeInterface
+     */
+    public function getImageSize(): ImageSizeInterface;
 }

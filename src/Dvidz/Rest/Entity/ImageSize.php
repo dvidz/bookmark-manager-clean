@@ -80,4 +80,22 @@ class ImageSize extends AbstractMediaSize implements ImageSizeInterface
 
         return $this;
     }
+
+    /**
+     * @param string|null $duration
+     *
+     * @return $this
+     */
+    public function setDuration(?string $duration): self
+    {
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDuration(): ?string
+    {
+        return null;
+    }
 }

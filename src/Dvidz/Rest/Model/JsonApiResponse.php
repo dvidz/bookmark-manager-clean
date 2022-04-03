@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 /**
  * Class ApiResponse.
  */
-class JsonApiResponse extends BaseApiResponse implements ApiResponseInterface, ApiErrorResponseInterface
+class JsonApiResponse extends AbstractBaseApiResponse implements ApiResponseInterface, ApiErrorResponseInterface
 {
     /**
      * @param ViewModelInterface $viewModel
@@ -22,7 +22,7 @@ class JsonApiResponse extends BaseApiResponse implements ApiResponseInterface, A
         $jsonApiResponse = new self();
         $jsonApiResponse->headers = new ResponseHeaderBag(
             [
-                'Content-Type' => 'application/json; charset=utf-8'
+                'Content-Type' => 'application/json; charset=utf-8',
             ]
         );
 
@@ -44,7 +44,7 @@ class JsonApiResponse extends BaseApiResponse implements ApiResponseInterface, A
         $jsonApiResponse = new self();
         $jsonApiResponse->headers = new ResponseHeaderBag(
             [
-                'Content-Type' => 'application/json; charset=utf-8'
+                'Content-Type' => 'application/json; charset=utf-8',
             ]
         );
 

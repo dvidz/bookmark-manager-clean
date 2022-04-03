@@ -64,7 +64,7 @@ class LinkScrapperService implements ScrapperInterface
         $bookmarkModelDto->imageHeight = $data['imageHeight'] ?? null;
         $bookmarkModelDto->videoWidth = $data['videoWidth'] ?? null;
         $bookmarkModelDto->videoHeight = $data['videoHeight'] ?? null;
-        $bookmarkModelDto->videoDuration = $this->formatVideoDuration((string) $data['duration'] ?? null);
+        $bookmarkModelDto->videoDuration = $this->formatVideoDuration(strval($data['duration']));
 
         return $bookmarkModelDto;
     }
@@ -80,10 +80,10 @@ class LinkScrapperService implements ScrapperInterface
         $meta = $extractor->getMetas()->get($metaName);
 
         if (is_array($meta)) {
-            return $meta[0] ?? null;
-        } else {
-            return $meta ?? null;
+            $meta = $meta[0] ?? null;
         }
+
+        return $meta ?? null;
     }
 
     /**

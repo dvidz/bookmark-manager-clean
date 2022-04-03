@@ -59,14 +59,6 @@ abstract class AbstractBookmark implements BookmarkInterface
     /**
      * @return string
      */
-    public function getUrl(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
     public function getProviderName(): string
     {
         return $this->getLinkProvider()->getProviderName();

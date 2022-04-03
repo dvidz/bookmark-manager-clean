@@ -78,8 +78,8 @@ ping-mysql:
 
 .PHONY: database-create
 database-create:
-	bin/console doctrine:database:create -n
-	bin/console doctrine:migrations:migrate -n
+	@docker exec bookmark-manager_php_1 bin/console doctrine:database:create -n
+	@docker exec bookmark-manager_php_1 bin/console doctrine:migrations:migrate -n
 
 .PHONY: database-drop
 database-drop:

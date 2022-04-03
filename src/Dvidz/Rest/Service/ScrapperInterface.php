@@ -11,5 +11,10 @@ use App\Dvidz\Rest\Model\BookmarkModelDto;
  */
 interface ScrapperInterface
 {
+    /**
+     * @param string $url
+     *
+     * @return BookmarkModelDto
+     */
     public function scrap(string $url): BookmarkModelDto;
 }

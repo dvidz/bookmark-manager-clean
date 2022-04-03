@@ -17,11 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
 class VideoSize extends AbstractMediaSize implements VideoSizeInterface
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=false)
      */
-    protected string $duration;
+    protected ?string $duration;
 
     /**
      * @ORM\ManyToMany(targetEntity=TypeLink::class, mappedBy="videoSizes")
@@ -40,22 +40,23 @@ class VideoSize extends AbstractMediaSize implements VideoSizeInterface
     {
         $this->typeLinks = new ArrayCollection();
         $this->bookmarks = new ArrayCollection();
+        $this->duration = null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDuration(): string
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
     /**
-     * @param string $duration
+     * @param string|null $duration
      *
      * @return $this
      */
-    public function setDuration(string $duration): self
+    public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
 
@@ -71,11 +72,11 @@ class VideoSize extends AbstractMediaSize implements VideoSizeInterface
     }
 
     /**
-     * @param TypeLink $typeLink
+     * @param TypeLinkInterface $typeLink
      *
      * @return $this
      */
-    public function addTypeLink(TypeLink $typeLink): self
+    public function addTypeLink(TypeLinkInterface $typeLink): self
     {
         if (!$this->typeLinks->contains($typeLink)) {
             $this->typeLinks[] = $typeLink;

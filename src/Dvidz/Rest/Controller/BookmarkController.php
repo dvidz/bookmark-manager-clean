@@ -7,7 +7,6 @@ namespace App\Dvidz\Rest\Controller;
 use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Manager\BookmarkManager;
 use App\Dvidz\Rest\Model\ApiResponseInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,25 +40,39 @@ class BookmarkController extends AbstractBaseController
      */
     public function bookmark(Request $request): ApiResponseInterface
     {
-        return $this->createErrorResponse([], Response::HTTP_NOT_IMPLEMENTED);
+        //return $this->createErrorResponse([], Response::HTTP_NOT_IMPLEMENTED);
+        $linkToBookmark = $request->query->get('url');
+        $bookmark = $this->bookmarkManager->bookmark((string) $linkToBookmark);
+
+        try {
+            $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
+            $response = $this->createResponse($bookmarkViewModel, Response::HTTP_CREATED);
+        } catch (MediaTypeException $e) {
+            $response = $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_IMPLEMENTED);
+        }
+
+        return $response;
     }
 
     /**
      * @Route("/bookmark", name="api_bookmark_create", methods={"POST"})
      *
-     * @return JsonResponse
+     * @param Request $request
+     *
+     * @return ApiResponseInterface
      */
-    public function createBookmark(Request $request): Response
+    public function createBookmark(Request $request): ApiResponseInterface
     {
-        $linkToBookmark = $request->request->get('url');
+        $linkToBookmark = (string) $request->request->get('url');
         $bookmark = $this->bookmarkManager->bookmark($linkToBookmark);
 
         try {
             $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
+            $response = $this->createResponse($bookmarkViewModel, Response::HTTP_CREATED);
         } catch (MediaTypeException $e) {
-            return new Response(json_encode([$e->getMessage()]), Response::HTTP_NOT_IMPLEMENTED);
+            $response = $this->createErrorResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return new Response(json_encode($bookmarkViewModel), Response::HTTP_CREATED);
+        return $response;
     }
 }

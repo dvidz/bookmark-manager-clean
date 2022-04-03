@@ -37,4 +37,23 @@ interface MediaSizeInterface
      * @return MediaSizeInterface
      */
     public function setHeight(float $height): self;
+
+    /**
+     * @param ?string $duration
+     *
+     * @return $this
+     */
+    public function setDuration(?string $duration): self;
+
+    /**
+     * @return string|null
+     */
+    public function getDuration(): ?string;
+
+    /**
+     * @param TypeLinkInterface $typeLink
+     *
+     * @return $this
+     */
+    public function addTypeLink(TypeLinkInterface $typeLink): self;
 }

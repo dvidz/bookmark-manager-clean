@@ -10,14 +10,14 @@ namespace App\Dvidz\Rest\Entity;
 interface VideoSizeInterface extends MediaSizeInterface
 {
     /**
-     * @param string $duration
+     * @param string|null $duration
      *
-     * @return VideoSizeInterface
+     * @return $this
      */
-    public function setDuration(string $duration): self;
+    public function setDuration(?string $duration): self;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDuration(): string;
+    public function getDuration(): ?string;
 }

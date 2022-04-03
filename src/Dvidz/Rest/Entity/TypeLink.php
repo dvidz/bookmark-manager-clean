@@ -165,11 +165,11 @@ class TypeLink implements TypeLinkInterface
     }
 
     /**
-     * @param VideoSize $videoSize
+     * @param VideoSizeInterface $videoSize
      *
      * @return $this
      */
-    public function addVideoSize(VideoSize $videoSize): self
+    public function addVideoSize(VideoSizeInterface $videoSize): self
     {
         if (!$this->videoSizes->contains($videoSize)) {
             $this->videoSizes[] = $videoSize;
