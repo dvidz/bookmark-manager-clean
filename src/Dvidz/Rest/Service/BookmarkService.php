@@ -44,4 +44,12 @@ class BookmarkService implements BookmarkServiceInterface
     {
         return $this->bookmarkRepository->findOneBy($parameters);
     }
+
+    /**
+     * @return array|Bookmark[]
+     */
+    public function findAll(): array
+    {
+        return $this->bookmarkRepository->findAll();
+    }
 }

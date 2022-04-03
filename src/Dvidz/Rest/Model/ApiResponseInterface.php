@@ -16,4 +16,12 @@ interface ApiResponseInterface
      * @return ApiResponseInterface
      */
     public static function createResponse(ViewModelInterface $viewModel, int $httpStatus): ApiResponseInterface;
+
+    /**
+     * @param BookmarkViewModelInterface[] $viewModels
+     * @param int                          $httpStatus
+     *
+     * @return ApiResponseInterface
+     */
+    public static function createListResponse(array $viewModels, int $httpStatus): ApiResponseInterface;
 }

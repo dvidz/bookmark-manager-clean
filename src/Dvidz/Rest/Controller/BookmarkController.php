@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Controller;
 
+use App\Dvidz\Rest\Exception\MalformedUrlException;
 use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Manager\BookmarkManager;
 use App\Dvidz\Rest\Model\ApiResponseInterface;
@@ -34,21 +35,16 @@ class BookmarkController extends AbstractBaseController
     /**
      * @Route("/bookmark", name="api_bookmark_list", methods={"GET"})
      *
-     * @param Request $request
-     *
      * @return ApiResponseInterface
      */
-    public function bookmark(Request $request): ApiResponseInterface
+    public function bookmark(): ApiResponseInterface
     {
-        //return $this->createErrorResponse([], Response::HTTP_NOT_IMPLEMENTED);
-        $linkToBookmark = $request->query->get('url');
-        $bookmark = $this->bookmarkManager->bookmark((string) $linkToBookmark);
-
         try {
-            $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
-            $response = $this->createResponse($bookmarkViewModel, Response::HTTP_CREATED);
+            $bookmarkList = $this->bookmarkManager->bookmarkList();
+            $bookmarkListViewModel = $this->bookmarkManager->getListViewModel($bookmarkList);
+            $response = $this->createListResponse($bookmarkListViewModel, Response::HTTP_CREATED);
         } catch (MediaTypeException $e) {
-            $response = $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_IMPLEMENTED);
+            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $response;
@@ -64,13 +60,18 @@ class BookmarkController extends AbstractBaseController
     public function createBookmark(Request $request): ApiResponseInterface
     {
         $linkToBookmark = (string) $request->request->get('url');
-        $bookmark = $this->bookmarkManager->bookmark($linkToBookmark);
+
+        try {
+            $bookmark = $this->bookmarkManager->bookmark($linkToBookmark);
+        } catch (MalformedUrlException $e) {
+            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
 
         try {
             $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
             $response = $this->createResponse($bookmarkViewModel, Response::HTTP_CREATED);
         } catch (MediaTypeException $e) {
-            $response = $this->createErrorResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_IMPLEMENTED);
         }
 
         return $response;

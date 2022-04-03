@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Dvidz\Rest\Controller;
 
 use App\Dvidz\Rest\Model\ApiResponseInterface;
+use App\Dvidz\Rest\Model\BookmarkViewModelInterface;
 use App\Dvidz\Rest\Model\JsonApiResponse;
 use App\Dvidz\Rest\Model\ViewModelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,17 @@ abstract class AbstractBaseController extends AbstractController
     public function createResponse(ViewModelInterface $viewModel, int $httpStatus): ApiResponseInterface
     {
         return JsonApiResponse::createResponse($viewModel, $httpStatus);
+    }
+
+    /**
+     * @param BookmarkViewModelInterface[] $bookmarks
+     * @param int                          $httpStatus
+     *
+     * @return ApiResponseInterface
+     */
+    public function createListResponse(array $bookmarks, int $httpStatus): ApiResponseInterface
+    {
+        return JsonApiResponse::createListResponse($bookmarks, $httpStatus);
     }
 
     /**

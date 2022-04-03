@@ -88,4 +88,32 @@ class BookmarkManager
     {
         return BookmarkViewModel::getViewModel($bookmark);
     }
+
+    /**
+     * @return array
+     */
+    public function bookmarkList(): array
+    {
+        return $this->bookmarkService->findAll();
+    }
+
+    /**
+     * @param array $bookmarkList
+     *
+     * @return array
+     *
+     * @throws MediaTypeException
+     */
+    public function getListViewModel(array $bookmarkList): array
+    {
+        $listViewModel = [];
+
+        if (!empty($bookmarkList)) {
+            foreach ($bookmarkList as $item) {
+                $listViewModel[] = $this->getViewModel($item);
+            }
+        }
+
+        return $listViewModel;
+    }
 }
