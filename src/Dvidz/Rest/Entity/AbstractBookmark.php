@@ -12,12 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class AbstractBookmark implements BookmarkInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="string", name="url", unique=true)
-     */
-    protected string $url;
-
-    /**
      * @var string
      */
     protected string $providerName;
@@ -43,34 +37,24 @@ abstract class AbstractBookmark implements BookmarkInterface
     protected \DateTimeImmutable $publicationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeLink::class, inversedBy="bookmarks")
+     * @ORM\ManyToOne(targetEntity=TypeLink::class, inversedBy="bookmarks", cascade={"persist"})
      */
-    protected TypeLink $typeLink;
+    protected TypeLinkInterface $typeLink;
 
     /**
-     * @ORM\ManyToOne(targetEntity=LinkProvider::class, inversedBy="bookmarks")
+     * @ORM\ManyToOne(targetEntity=LinkProvider::class, inversedBy="bookmarks", cascade={"persist"})
      */
-    protected LinkProvider $linkProvider;
+    protected LinkProviderInterface $linkProvider;
 
     /**
-     * @return string
+     * @ORM\ManyToOne(targetEntity=ImageSize::class, inversedBy="bookmarks", cascade={"persist"})
      */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
+    protected ImageSizeInterface $imageSize;
 
     /**
-     * @param string $url
-     *
-     * @return $this
+     * @ORM\ManyToOne(targetEntity=VideoSize::class, inversedBy="bookmarks", cascade={"persist"})
      */
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
-    }
+    protected VideoSizeInterface $videoSize;
 
     /**
      * @return string
@@ -141,19 +125,19 @@ abstract class AbstractBookmark implements BookmarkInterface
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
-    public function getPublicationDate(): \DateTimeImmutable
+    public function getPublicationDate(): ?\DateTimeImmutable
     {
         return $this->publicationDate;
     }
 
     /**
-     * @param \DateTimeImmutable $publicationDate
+     * @param \DateTimeImmutable|null $publicationDate
      *
      * @return $this
      */
-    public function setPublicationDate(\DateTimeImmutable $publicationDate): self
+    public function setPublicationDate(?\DateTimeImmutable $publicationDate): self
     {
         $this->publicationDate = $publicationDate;
 
@@ -161,19 +145,19 @@ abstract class AbstractBookmark implements BookmarkInterface
     }
 
     /**
-     * @return TypeLink|null
+     * @return TypeLinkInterface|null
      */
-    public function getTypeLink(): ?TypeLink
+    public function getTypeLink(): ?TypeLinkInterface
     {
         return $this->typeLink;
     }
 
     /**
-     * @param TypeLink|null $typeLink
+     * @param TypeLinkInterface|null $typeLink
      *
      * @return $this
      */
-    public function setTypeLink(?TypeLink $typeLink): self
+    public function setTypeLink(?TypeLinkInterface $typeLink): self
     {
         $this->typeLink = $typeLink;
 
@@ -181,21 +165,61 @@ abstract class AbstractBookmark implements BookmarkInterface
     }
 
     /**
-     * @return LinkProvider|null
+     * @return LinkProviderInterface|null
      */
-    public function getLinkProvider(): ?LinkProvider
+    public function getLinkProvider(): ?LinkProviderInterface
     {
         return $this->linkProvider;
     }
 
     /**
-     * @param LinkProvider|null $linkProvider
+     * @param LinkProviderInterface|null $linkProvider
      *
      * @return $this
      */
-    public function setLinkProvider(?LinkProvider $linkProvider): self
+    public function setLinkProvider(?LinkProviderInterface $linkProvider): self
     {
         $this->linkProvider = $linkProvider;
+
+        return $this;
+    }
+
+    /**
+     * @return ImageSizeInterface
+     */
+    public function getImageSize(): ImageSizeInterface
+    {
+        return $this->imageSize;
+    }
+
+    /**
+     * @param ImageSizeInterface $imageSize
+     *
+     * @return $this
+     */
+    public function setImageSize(ImageSizeInterface $imageSize): self
+    {
+        $this->imageSize = $imageSize;
+
+        return $this;
+    }
+
+    /**
+     * @return VideoSizeInterface
+     */
+    public function getVideoSize(): VideoSizeInterface
+    {
+        return $this->videoSize;
+    }
+
+    /**
+     * @param VideoSizeInterface $videoSize
+     *
+     * @return $this
+     */
+    public function setVideoSize(VideoSizeInterface $videoSize): self
+    {
+        $this->videoSize = $videoSize;
 
         return $this;
     }

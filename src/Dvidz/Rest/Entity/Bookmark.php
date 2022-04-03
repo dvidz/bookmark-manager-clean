@@ -12,4 +12,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Bookmark extends AbstractBookmark
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected string $id;
+
+    /**
+     * @param string $url
+     */
+    public function __construct(string $url)
+    {
+        $this->id = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->id;
+    }
 }

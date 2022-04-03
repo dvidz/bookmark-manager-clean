@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Class MediaSize.
  */
-class MediaSize implements MediaSizeInterface
+abstract class AbstractMediaSize implements MediaSizeInterface
 {
     /**
      * @ORM\Id
@@ -55,9 +53,9 @@ class MediaSize implements MediaSizeInterface
     /**
      * @param float $width
      *
-     * @return MediaSize
+     * @return AbstractMediaSize
      */
-    public function setWidth(float $width): MediaSize
+    public function setWidth(float $width): AbstractMediaSize
     {
         $this->width = $width;
 
@@ -75,9 +73,9 @@ class MediaSize implements MediaSizeInterface
     /**
      * @param float $height
      *
-     * @return MediaSize
+     * @return AbstractMediaSize
      */
-    public function setHeight(float $height): MediaSize
+    public function setHeight(float $height): AbstractMediaSize
     {
         $this->height = $height;
 
