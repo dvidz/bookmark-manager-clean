@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Entity;
 
+use App\Dvidz\Rest\Repository\VideoSizeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class VideoSize.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=VideoSizeRepository::class)
  */
-class VideoSize extends MediaSize implements VideoSizeInterface
+class VideoSize extends AbstractMediaSize implements VideoSizeInterface
 {
     /**
      * @var string
@@ -28,11 +29,17 @@ class VideoSize extends MediaSize implements VideoSizeInterface
     protected Collection $typeLinks;
 
     /**
+     * @ORM\OneToMany(targetEntity=Bookmark::class, mappedBy="videoSize")
+     */
+    protected Collection $bookmarks;
+
+    /**
      * VideoSize constructor.
      */
     public function __construct()
     {
         $this->typeLinks = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
     }
 
     /**
@@ -46,9 +53,9 @@ class VideoSize extends MediaSize implements VideoSizeInterface
     /**
      * @param string $duration
      *
-     * @return VideoSize
+     * @return $this
      */
-    public function setDuration(string $duration): VideoSize
+    public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 
@@ -79,14 +86,23 @@ class VideoSize extends MediaSize implements VideoSizeInterface
     }
 
     /**
-     * @param TypeLink $typeLink
+     * @return Collection<int, Bookmark>
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    /**
+     * @param Bookmark $bookmark
      *
      * @return $this
      */
-    public function removeTypeLink(TypeLink $typeLink): self
+    public function addBookmark(Bookmark $bookmark): self
     {
-        if ($this->typeLinks->removeElement($typeLink)) {
-            $typeLink->removeVideoSize($this);
+        if (!$this->bookmarks->contains($bookmark)) {
+            $this->bookmarks[] = $bookmark;
+            $bookmark->setVideoSize($this);
         }
 
         return $this;

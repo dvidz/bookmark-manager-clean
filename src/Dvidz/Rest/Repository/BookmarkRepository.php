@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class BookmarkRepository.
  */
-class BookmarkRepository extends ServiceEntityRepository
+class BookmarkRepository extends ServiceEntityRepository implements BookmarkRepositoryInterface
 {
     /**
      * @param ManagerRegistry $registry
@@ -19,5 +19,17 @@ class BookmarkRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Bookmark::class);
+    }
+
+    /**
+     * @param Bookmark $bookmark
+     *
+     * @return void
+     */
+    public function saveBookmark(Bookmark $bookmark)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($bookmark);
+        $em->flush();
     }
 }

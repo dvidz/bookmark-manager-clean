@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Entity;
 
+use App\Dvidz\Rest\Repository\ImageSizeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ImageSize.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ImageSizeRepository::class)
  */
-class ImageSize extends MediaSize
+class ImageSize extends AbstractMediaSize implements ImageSizeInterface
 {
     /**
      * @ORM\ManyToMany(targetEntity=TypeLink::class, mappedBy="imageSizes")
@@ -21,11 +22,17 @@ class ImageSize extends MediaSize
     protected Collection $typeLinks;
 
     /**
+     * @ORM\OneToMany(targetEntity=Bookmark::class, mappedBy="imageSize")
+     */
+    protected Collection $bookmarks;
+
+    /**
      * ImageSize constructors.
      */
     public function __construct()
     {
         $this->typeLinks = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
     }
 
     /**
@@ -37,11 +44,11 @@ class ImageSize extends MediaSize
     }
 
     /**
-     * @param TypeLink $typeLink
+     * @param TypeLinkInterface $typeLink
      *
      * @return $this
      */
-    public function addTypeLink(TypeLink $typeLink): self
+    public function addTypeLink(TypeLinkInterface $typeLink): self
     {
         if (!$this->typeLinks->contains($typeLink)) {
             $this->typeLinks[] = $typeLink;
@@ -52,14 +59,23 @@ class ImageSize extends MediaSize
     }
 
     /**
-     * @param TypeLink $typeLink
+     * @return Collection<int, Bookmark>
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    /**
+     * @param Bookmark $bookmark
      *
      * @return $this
      */
-    public function removeTypeLink(TypeLink $typeLink): self
+    public function addBookmark(Bookmark $bookmark): self
     {
-        if ($this->typeLinks->removeElement($typeLink)) {
-            $typeLink->removeImageSize($this);
+        if (!$this->bookmarks->contains($bookmark)) {
+            $this->bookmarks[] = $bookmark;
+            $bookmark->setImageSize($this);
         }
 
         return $this;

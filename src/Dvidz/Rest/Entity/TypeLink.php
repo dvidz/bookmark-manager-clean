@@ -113,22 +113,6 @@ class TypeLink implements TypeLinkInterface
     }
 
     /**
-     * @param Bookmark $bookmark
-     *
-     * @return $this
-     */
-    public function removeBookmark(Bookmark $bookmark): self
-    {
-        if ($this->bookmarks->removeElement($bookmark)) {
-            if ($bookmark->getTypeLink() === $this) {
-                $bookmark->setTypeLink(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, LinkProvider>
      */
     public function getLinkProviders(): Collection
@@ -146,18 +130,6 @@ class TypeLink implements TypeLinkInterface
         if (!$this->linkProviders->contains($linkProvider)) {
             $this->linkProviders[] = $linkProvider;
         }
-
-        return $this;
-    }
-
-    /**
-     * @param LinkProvider $linkProvider
-     *
-     * @return $this
-     */
-    public function removeLinkProvider(LinkProvider $linkProvider): self
-    {
-        $this->linkProviders->removeElement($linkProvider);
 
         return $this;
     }
@@ -185,18 +157,6 @@ class TypeLink implements TypeLinkInterface
     }
 
     /**
-     * @param ImageSize $imageSize
-     *
-     * @return $this
-     */
-    public function removeImageSize(ImageSize $imageSize): self
-    {
-        $this->imageSizes->removeElement($imageSize);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, VideoSize>
      */
     public function getVideoSizes(): Collection
@@ -214,18 +174,6 @@ class TypeLink implements TypeLinkInterface
         if (!$this->videoSizes->contains($videoSize)) {
             $this->videoSizes[] = $videoSize;
         }
-
-        return $this;
-    }
-
-    /**
-     * @param VideoSize $videoSize
-     *
-     * @return $this
-     */
-    public function removeVideoSize(VideoSize $videoSize): self
-    {
-        $this->videoSizes->removeElement($videoSize);
 
         return $this;
     }

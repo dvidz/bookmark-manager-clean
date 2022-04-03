@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Controller;
 
+use App\Dvidz\Rest\Exception\MediaTypeException;
 use App\Dvidz\Rest\Manager\BookmarkManager;
-use App\Dvidz\Rest\Repository\BookmarkRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Dvidz\Rest\Model\ApiResponseInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/api")
  */
-class BookmarkController extends AbstractController
+class BookmarkController extends AbstractBaseController
 {
     /**
      * @var BookmarkManager
@@ -32,12 +33,33 @@ class BookmarkController extends AbstractController
     }
 
     /**
-     * @Route("/bookmark", name="bookmark_list", methods={"GET"})
+     * @Route("/bookmark", name="api_bookmark_list", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return ApiResponseInterface
+     */
+    public function bookmark(Request $request): ApiResponseInterface
+    {
+        return $this->createErrorResponse([], Response::HTTP_NOT_IMPLEMENTED);
+    }
+
+    /**
+     * @Route("/bookmark", name="api_bookmark_create", methods={"POST"})
      *
      * @return JsonResponse
      */
-    public function bookmark(): JsonResponse
+    public function createBookmark(Request $request): Response
     {
-        return new JsonResponse([], Response::HTTP_OK);
+        $linkToBookmark = $request->request->get('url');
+        $bookmark = $this->bookmarkManager->bookmark($linkToBookmark);
+
+        try {
+            $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
+        } catch (MediaTypeException $e) {
+            return new Response(json_encode([$e->getMessage()]), Response::HTTP_NOT_IMPLEMENTED);
+        }
+
+        return new Response(json_encode($bookmarkViewModel), Response::HTTP_CREATED);
     }
 }

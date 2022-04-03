@@ -101,22 +101,6 @@ class LinkProvider implements LinkProviderInterface
     }
 
     /**
-     * @param Bookmark $bookmark
-     *
-     * @return $this
-     */
-    public function removeBookmark(Bookmark $bookmark): self
-    {
-        if ($this->bookmarks->removeElement($bookmark)) {
-            if ($bookmark->getLinkProvider() === $this) {
-                $bookmark->setLinkProvider(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, TypeLink>
      */
     public function getTypeLinks(): Collection
@@ -134,20 +118,6 @@ class LinkProvider implements LinkProviderInterface
         if (!$this->typeLinks->contains($typeLink)) {
             $this->typeLinks[] = $typeLink;
             $typeLink->addLinkProvider($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param TypeLink $typeLink
-     *
-     * @return $this
-     */
-    public function removeTypeLink(TypeLink $typeLink): self
-    {
-        if ($this->typeLinks->removeElement($typeLink)) {
-            $typeLink->removeLinkProvider($this);
         }
 
         return $this;

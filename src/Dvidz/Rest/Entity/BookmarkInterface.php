@@ -15,13 +15,6 @@ interface BookmarkInterface
     public function getUrl(): string;
 
     /**
-     * @param string $url
-     *
-     * @return $this
-     */
-    public function setUrl(string $url): self;
-
-    /**
      * @return string
      */
     public function getProviderName(): string;
@@ -63,9 +56,9 @@ interface BookmarkInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): self;
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
-    public function getPublicationDate(): \DateTimeImmutable;
+    public function getPublicationDate(): ?\DateTimeImmutable;
 
     /**
      * @param \DateTimeImmutable $publicationDate
