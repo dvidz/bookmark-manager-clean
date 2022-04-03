@@ -44,7 +44,7 @@ class BookmarkController extends AbstractBaseController
         try {
             $bookmarkList = $this->bookmarkManager->bookmarkList();
             $bookmarkListViewModel = $this->bookmarkManager->getListViewModel($bookmarkList);
-            $response = $this->createListResponse($bookmarkListViewModel, Response::HTTP_CREATED);
+            $response = $this->createListResponse($bookmarkListViewModel, Response::HTTP_OK);
         } catch (MediaTypeException $e) {
             return $this->createErrorResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -80,16 +80,16 @@ class BookmarkController extends AbstractBaseController
     }
 
     /**
-     * @Route("/bookmark/{id}", name="api_bookmark_delete", methods={"GET"})
+     * @Route("/bookmark/{url}", name="api_bookmark_delete", methods={"DELETE"}, requirements={"url"=".+"})
      *
-     * @param BookmarkInterface $bookmark
+     * @param string $url
      *
      * @return ApiResponseInterface
      */
-    public function deleteBookmark(BookmarkInterface $bookmark): ApiResponseInterface
+    public function deleteBookmark(string $url): ApiResponseInterface
     {
         try {
-            $this->bookmarkManager->removeBookmark($bookmark);
+            $this->bookmarkManager->removeBookmark($url);
         } catch (BookmarkNotFoundException $e) {
             return $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_FOUND);
         }
