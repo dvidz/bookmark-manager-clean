@@ -10,14 +10,26 @@ namespace App\Dvidz\Rest\Entity;
 interface BookmarkInterface
 {
     /**
+     * @return int
+     */
+    public function getId(): int;
+
+    /**
      * @return string
      */
     public function getUrl(): string;
 
     /**
-     * @return string
+     * @param string $url
+     *
+     * @return $this
      */
-    public function getProviderName(): string;
+    public function setUrl(string $url): self;
+
+    /**
+     * @return string|null
+     */
+    public function getProviderName(): ?string;
 
     /**
      * @return string

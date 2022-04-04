@@ -128,7 +128,7 @@ class BookMarkBuilder implements BookmarkBuilderInterface
 
         throw new MediaTypeException(sprintf(
             'Can not handle MediaSize with this bookmark type %s',
-            $bookmarkModelDto->type ?? 'null'
+            $bookmarkModelDto->type
         ));
     }
 
@@ -138,6 +138,7 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      * @return Bookmark
      *
      * @throws MediaTypeException
+     * @throws \Exception
      */
     public function buildBookmark(BookmarkModelDto $bookmarkModelDto): Bookmark
     {
@@ -146,7 +147,8 @@ class BookMarkBuilder implements BookmarkBuilderInterface
         $mediaSize = $this->buildMediaSize($bookmarkModelDto);
         $mediaSize->addTypeLink($typeLink);
 
-        $bookmark = (new Bookmark((string) $bookmarkModelDto->url))
+        $bookmark = (new Bookmark())
+            ->setUrl($bookmarkModelDto->url)
             ->setLinkProvider($linkProvider)
             ->setTypeLink($typeLink)
             ->setLinkAuthor((string) $bookmarkModelDto->linkAuthor)

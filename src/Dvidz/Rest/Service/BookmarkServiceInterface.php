@@ -1,42 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Dvidz\Rest\Service;
 
-use App\Dvidz\Rest\Entity\Bookmark;
 use App\Dvidz\Rest\Entity\BookmarkInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Dvidz\Rest\Repository\BookmarkRepositoryInterface;
 
 /**
- * Class BookmarkServiceInterface.
+ * Interface BookmarkServiceInterface.
  */
 interface BookmarkServiceInterface
 {
     /**
-     * @param Bookmark $bookmark
+     * @param string $url
      *
-     * @return void
+     * @return BookmarkInterface
      */
-    public function addBookmark(Bookmark $bookmark): void;
+    public function bookmark(string $url): BookmarkInterface;
 
     /**
-     * @param array $parameters
-     *
-     * @return mixed|object|null
+     * @return BookmarkRepositoryInterface
      */
-    public function findOneBookmarkBy(array $parameters);
-
-    /**
-     * @return array
-     */
-    public function findAll(): array;
-
-    /**
-     * @param BookmarkInterface $bookmark
-     *
-     * @return mixed
-     */
-    public function removeBookmark(BookmarkInterface $bookmark);
+    public function getRepository(): BookmarkRepositoryInterface;
 }

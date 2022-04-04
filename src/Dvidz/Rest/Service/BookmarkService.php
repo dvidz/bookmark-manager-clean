@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Service;
 
-use App\Dvidz\Rest\Entity\Bookmark;
 use App\Dvidz\Rest\Entity\BookmarkInterface;
-use App\Dvidz\Rest\Repository\BookmarkRepository;
+use App\Dvidz\Rest\Exception\MalformedUrlException;
+use App\Dvidz\Rest\Repository\BookmarkRepositoryInterface;
+use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 /**
  * Class BookmarkService.
@@ -14,53 +16,67 @@ use App\Dvidz\Rest\Repository\BookmarkRepository;
 class BookmarkService implements BookmarkServiceInterface
 {
     /**
-     * @var BookmarkRepository
+     * @var CrawlerInterface
      */
-    protected BookmarkRepository $bookmarkRepository;
+    protected CrawlerInterface $crawler;
 
     /**
-     * @param BookmarkRepository $bookmarkRepository
+     * @var BookmarkBuilderInterface
      */
-    public function __construct(BookmarkRepository $bookmarkRepository)
+    protected BookmarkBuilderInterface $bookmarkBuilder;
+
+    /**
+     * @var BookmarkRepositoryInterface
+     */
+    protected BookmarkRepositoryInterface $bookmarkRepository;
+
+    /**
+     * @param CrawlerInterface            $scrapper
+     * @param BookmarkBuilderInterface    $bookmarkBuilder
+     * @param BookmarkRepositoryInterface $bookmarkRepository
+     */
+    public function __construct(CrawlerInterface $scrapper, BookmarkBuilderInterface $bookmarkBuilder, BookmarkRepositoryInterface $bookmarkRepository)
     {
+        $this->crawler = $scrapper;
+        $this->bookmarkBuilder = $bookmarkBuilder;
         $this->bookmarkRepository = $bookmarkRepository;
     }
 
     /**
-     * @param Bookmark $bookmark
+     * @param string $url
      *
-     * @return void
+     * @return BookmarkInterface
+     *
+     * @throws MalformedUrlException
      */
-    public function addBookmark(Bookmark $bookmark): void
+    public function bookmark(string $url): BookmarkInterface
     {
-        $this->bookmarkRepository->saveBookmark($bookmark);
+        try {
+            Assertion::url($url);
+        } catch (AssertionFailedException $e) {
+            throw new MalformedUrlException();
+        }
+
+        // Check if link was already bookmarked.
+        if (null === $bookmark = $this->bookmarkRepository->findOneBy(['url' => $url])) {
+            // Extract link data to the DTO.
+            $bookmarkDto = $this->crawler->crawl($url);
+
+            // Build the bookmark.
+            $bookmark = $this->bookmarkBuilder->buildBookmark($bookmarkDto);
+
+            // Add bookmark to database.
+            $this->bookmarkRepository->saveBookmark($bookmark);
+        }
+
+        return $bookmark;
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return mixed|object|null
+     * @return BookmarkRepositoryInterface
      */
-    public function findOneBookmarkBy(array $parameters)
+    public function getRepository(): BookmarkRepositoryInterface
     {
-        return $this->bookmarkRepository->findOneBy($parameters);
-    }
-
-    /**
-     * @return array|Bookmark[]
-     */
-    public function findAll(): array
-    {
-        return $this->bookmarkRepository->findAll();
-    }
-
-    /**
-     * @param BookmarkInterface $bookmark
-     *
-     * @return void
-     */
-    public function removeBookmark(BookmarkInterface $bookmark): void
-    {
-        $this->bookmarkRepository->removeBookmark($bookmark);
+        return $this->bookmarkRepository;
     }
 }

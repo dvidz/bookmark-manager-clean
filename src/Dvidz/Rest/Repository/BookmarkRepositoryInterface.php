@@ -1,20 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Dvidz\Rest\Repository;
 
 use App\Dvidz\Rest\Entity\Bookmark;
+use App\Dvidz\Rest\Entity\BookmarkInterface;
+use Doctrine\Persistence\ObjectRepository;
 
 /**
- * Interface BookmarkRepositoryInterface.
+ * Class BookmarkRepositoryInterface.
  */
-interface BookmarkRepositoryInterface
+interface BookmarkRepositoryInterface extends ObjectRepository
 {
     /**
      * @param Bookmark $bookmark
      *
-     * @return mixed
+     * @return void
      */
-    public function saveBookmark(Bookmark $bookmark);
+    public function saveBookmark(Bookmark $bookmark): void;
+
+    /**
+     * @param BookmarkInterface $bookmark
+     *
+     * @return void
+     */
+    public function removeBookmark(BookmarkInterface $bookmark): void;
 }

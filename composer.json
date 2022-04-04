@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "embed/embed": "^4.4",
+        "sensio/framework-extra-bundle": "^6.2",
         "slim/psr7": "^1.5",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",

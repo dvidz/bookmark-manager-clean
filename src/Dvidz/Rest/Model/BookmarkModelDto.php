@@ -9,13 +9,14 @@ namespace App\Dvidz\Rest\Model;
  */
 class BookmarkModelDto
 {
-    public ?string $url;
-    public ?string $providerName;
+    public int $id;
+    public string $url;
+    public string $providerName;
     public ?string $linkTitle;
     public ?string $linkAuthor;
-    public ?string $createAt;
+    public string $createAt;
     public ?string $publishedDate;
-    public ?string $type;
+    public string $type;
     public ?string $videoHeight;
     public ?string $videoWidth;
     public ?string $videoDuration;

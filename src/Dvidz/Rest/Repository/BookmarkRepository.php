@@ -27,7 +27,7 @@ class BookmarkRepository extends ServiceEntityRepository implements BookmarkRepo
      *
      * @return void
      */
-    public function saveBookmark(Bookmark $bookmark)
+    public function saveBookmark(Bookmark $bookmark): void
     {
         $em = $this->getEntityManager();
         $em->persist($bookmark);
