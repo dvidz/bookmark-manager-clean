@@ -11,12 +11,12 @@ class BookmarkModelDto
 {
     public int $id;
     public string $url;
+    public string $type;
     public string $providerName;
     public ?string $linkTitle;
     public ?string $linkAuthor;
     public string $createAt;
     public ?string $publishedDate;
-    public string $type;
     public ?string $videoHeight;
     public ?string $videoWidth;
     public ?string $videoDuration;
