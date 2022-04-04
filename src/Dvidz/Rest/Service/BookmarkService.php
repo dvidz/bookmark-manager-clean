@@ -6,6 +6,7 @@ namespace App\Dvidz\Rest\Service;
 
 use App\Dvidz\Rest\Entity\BookmarkInterface;
 use App\Dvidz\Rest\Exception\MalformedUrlException;
+use App\Dvidz\Rest\Model\BookmarkModelDto;
 use App\Dvidz\Rest\Repository\BookmarkRepositoryInterface;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
@@ -59,13 +60,15 @@ class BookmarkService implements BookmarkServiceInterface
 
         // Check if link was already bookmarked.
         if (null === $bookmark = $this->bookmarkRepository->findOneBy(['url' => $url])) {
-            // Extract link data to the DTO.
-            $bookmarkDto = $this->crawler->crawl($url);
+            // Crawl url.
+            $data = $this->crawler->crawl($url);
 
-            // Build the bookmark.
-            $bookmark = $this->bookmarkBuilder->buildBookmark($bookmarkDto);
+            // Build bookmark.
+            $bookmark = $this->bookmarkBuilder->buildBookmark(
+                $this->buildBookmarkModelDto($data, $url)
+            );
 
-            // Add bookmark to database.
+            // Register bookmark.
             $this->bookmarkRepository->saveBookmark($bookmark);
         }
 
@@ -78,5 +81,30 @@ class BookmarkService implements BookmarkServiceInterface
     public function getRepository(): BookmarkRepositoryInterface
     {
         return $this->bookmarkRepository;
+    }
+
+    /**
+     * @param array  $data
+     * @param string $url
+     *
+     * @return BookmarkModelDto
+     */
+    private function buildBookmarkModelDto(array $data, string $url): BookmarkModelDto
+    {
+        $bookmarkModelDto = new BookmarkModelDto();
+
+        $bookmarkModelDto->url = $url;
+        $bookmarkModelDto->linkTitle = $data['title'] ?? null;
+        $bookmarkModelDto->providerName = $data['provider_name'] ?? null;
+        $bookmarkModelDto->linkAuthor = $data['author_url'] ?? null;
+        $bookmarkModelDto->publishedDate = $data['publishedDate'] ?? null;
+        $bookmarkModelDto->type = $data['type'] ?? null;
+        $bookmarkModelDto->imageWidth = strval($data['imageWidth']);
+        $bookmarkModelDto->imageHeight = strval($data['imageHeight']);
+        $bookmarkModelDto->videoWidth = strval($data['videoWidth']);
+        $bookmarkModelDto->videoHeight = strval($data['videoHeight']);
+        $bookmarkModelDto->videoDuration = strval($data['duration']);
+
+        return $bookmarkModelDto;
     }
 }

@@ -14,7 +14,7 @@ interface CrawlerInterface
     /**
      * @param string $url
      *
-     * @return BookmarkModelDto
+     * @return array
      */
-    public function crawl(string $url): BookmarkModelDto;
+    public function crawl(string $url): array;
 }
