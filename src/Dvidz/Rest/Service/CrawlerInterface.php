@@ -7,14 +7,14 @@ namespace App\Dvidz\Rest\Service;
 use App\Dvidz\Rest\Model\BookmarkModelDto;
 
 /**
- * Interface ScrapperInterface.
+ * Interface CrawlerInterface.
  */
-interface ScrapperInterface
+interface CrawlerInterface
 {
     /**
      * @param string $url
      *
      * @return BookmarkModelDto
      */
-    public function scrap(string $url): BookmarkModelDto;
+    public function crawl(string $url): BookmarkModelDto;
 }

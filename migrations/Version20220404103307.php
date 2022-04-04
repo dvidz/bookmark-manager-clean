@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220403012852 extends AbstractMigration
+final class Version20220404103307 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20220403012852 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE bookmark (id VARCHAR(255) NOT NULL, type_link_id INT DEFAULT NULL, link_provider_id INT DEFAULT NULL, image_size_id INT DEFAULT NULL, video_size_id INT DEFAULT NULL, link_title VARCHAR(255) NOT NULL, link_author VARCHAR(100) NOT NULL, created_at DATE NOT NULL COMMENT \'(DC2Type:date_immutable)\', publication_date DATE NOT NULL COMMENT \'(DC2Type:date_immutable)\', INDEX IDX_DA62921D85856D84 (type_link_id), INDEX IDX_DA62921DC7D324F9 (link_provider_id), INDEX IDX_DA62921DDC9DFFFB (image_size_id), INDEX IDX_DA62921DAC60418A (video_size_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE bookmark (id INT AUTO_INCREMENT NOT NULL, type_link_id INT DEFAULT NULL, link_provider_id INT DEFAULT NULL, image_size_id INT DEFAULT NULL, video_size_id INT DEFAULT NULL, url VARCHAR(255) NOT NULL, link_title VARCHAR(255) NOT NULL, link_author VARCHAR(100) NOT NULL, created_at DATE NOT NULL COMMENT \'(DC2Type:date_immutable)\', publication_date DATE NOT NULL COMMENT \'(DC2Type:date_immutable)\', INDEX IDX_DA62921D85856D84 (type_link_id), INDEX IDX_DA62921DC7D324F9 (link_provider_id), INDEX IDX_DA62921DDC9DFFFB (image_size_id), INDEX IDX_DA62921DAC60418A (video_size_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE image_size (id INT AUTO_INCREMENT NOT NULL, width DOUBLE PRECISION NOT NULL, height DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE link_provider (id INT AUTO_INCREMENT NOT NULL, provider_name VARCHAR(100) NOT NULL, UNIQUE INDEX UNIQ_5F6E1355BBAB1D7A (provider_name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE type_link (id INT AUTO_INCREMENT NOT NULL, type_link_name VARCHAR(20) NOT NULL, UNIQUE INDEX UNIQ_E1A35CF95BA2ADBF (type_link_name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

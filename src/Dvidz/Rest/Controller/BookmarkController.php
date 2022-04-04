@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Controller;
 
-use App\Dvidz\Rest\Entity\BookmarkInterface;
-use App\Dvidz\Rest\Exception\BookmarkNotFoundException;
+use App\Dvidz\Rest\Entity\Bookmark;
 use App\Dvidz\Rest\Exception\MalformedUrlException;
 use App\Dvidz\Rest\Exception\MediaTypeException;
-use App\Dvidz\Rest\Manager\BookmarkManager;
-use App\Dvidz\Rest\Model\ApiResponseInterface;
+use App\Dvidz\Rest\Exception\NullTypeLinkException;
+use App\Dvidz\Rest\Model\BookmarkViewModel;
+use App\Dvidz\Rest\Service\BookmarkService;
+use App\Dvidz\Rest\Service\BookmarkServiceInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,78 +24,70 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookmarkController extends AbstractBaseController
 {
     /**
-     * @var BookmarkManager
-     */
-    protected BookmarkManager $bookmarkManager;
-
-    /**
-     * @param BookmarkManager $bookmarkManager
-     */
-    public function __construct(BookmarkManager $bookmarkManager)
-    {
-        $this->bookmarkManager = $bookmarkManager;
-    }
-
-    /**
      * @Route("/bookmark", name="api_bookmark_list", methods={"GET"})
      *
-     * @return ApiResponseInterface
+     * @param BookmarkServiceInterface $bookmarkService
+     *
+     * @return JsonResponse
      */
-    public function bookmark(): ApiResponseInterface
+    public function bookmark(BookmarkServiceInterface $bookmarkService): JsonResponse
     {
-        try {
-            $bookmarkList = $this->bookmarkManager->bookmarkList();
-            $bookmarkListViewModel = $this->bookmarkManager->getListViewModel($bookmarkList);
-            $response = $this->createListResponse($bookmarkListViewModel, Response::HTTP_OK);
-        } catch (MediaTypeException $e) {
-            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $bookmarkList = [];
 
-        return $response;
+        try {
+            $bookmarks = $bookmarkService->getRepository()->findAll();
+
+            foreach ($bookmarks as $bookmark) {
+                $bookmarkList[] = BookmarkViewModel::getViewModel($bookmark);
+            }
+
+            return new JsonResponse($bookmarkList, Response::HTTP_OK);
+        } catch (MediaTypeException|NullTypeLinkException $e) {
+            return new JsonResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * @Route("/bookmark", name="api_bookmark_create", methods={"POST"})
      *
-     * @param Request $request
+     * @param Request         $request
+     * @param BookmarkService $bookmarkService
      *
-     * @return ApiResponseInterface
+     * @return JsonResponse
      */
-    public function createBookmark(Request $request): ApiResponseInterface
+    public function createBookmark(Request $request, BookmarkService $bookmarkService): JsonResponse
     {
+        if (null === $request->request->get('url')) {
+            return new JsonResponse(['url parameters is mandatory'], Response::HTTP_BAD_REQUEST);
+        }
+
         $linkToBookmark = (string) $request->request->get('url');
 
         try {
-            $bookmark = $this->bookmarkManager->bookmark($linkToBookmark);
-        } catch (MalformedUrlException $e) {
-            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_BAD_REQUEST);
-        }
+            $bookmark = $bookmarkService->bookmark($linkToBookmark);
 
-        try {
-            $bookmarkViewModel = $this->bookmarkManager->getViewModel($bookmark);
-            $response = $this->createResponse($bookmarkViewModel, Response::HTTP_CREATED);
-        } catch (MediaTypeException $e) {
-            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_IMPLEMENTED);
+            return new JsonResponse(BookmarkViewModel::getViewModel($bookmark), Response::HTTP_CREATED);
+        } catch (MalformedUrlException|MediaTypeException|\Exception $e) {
+            return new JsonResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $response;
     }
 
     /**
-     * @Route("/bookmark/{url}", name="api_bookmark_delete", methods={"DELETE"}, requirements={"url"=".+"})
+     * @Route("/bookmark/{id}", name="api_bookmark_delete", methods={"DELETE"})
      *
-     * @param string $url
+     * @param Bookmark                 $bookmark
+     * @param BookmarkServiceInterface $bookmarkService
      *
-     * @return ApiResponseInterface
+     * @return JsonResponse
      */
-    public function deleteBookmark(string $url): ApiResponseInterface
+    public function deleteBookmark(Bookmark $bookmark, BookmarkServiceInterface $bookmarkService): JsonResponse
     {
         try {
-            $this->bookmarkManager->removeBookmark($url);
-        } catch (BookmarkNotFoundException $e) {
-            return $this->createErrorResponse([$e->getMessage()], Response::HTTP_NOT_FOUND);
+            $bookmarkService->getRepository()->removeBookmark($bookmark);
+        } catch (\Exception $e) {
+            return new JsonResponse([$e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->createEmptyResponse(Response::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

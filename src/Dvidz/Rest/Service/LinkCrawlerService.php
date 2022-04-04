@@ -11,7 +11,7 @@ use Embed\Extractor;
 /**
  * Class LinkScrapperService.
  */
-class LinkScrapperService implements ScrapperInterface
+class LinkCrawlerService implements CrawlerInterface
 {
     /**
      * @var Embed
@@ -31,14 +31,14 @@ class LinkScrapperService implements ScrapperInterface
      *
      * @return BookmarkModelDto
      */
-    public function scrap(string $url): BookmarkModelDto
+    public function crawl(string $url): BookmarkModelDto
     {
         $extractor = $this->scrapper->get($url);
         $extractedData = $extractor->getOEmbed()->all();
         $extractedData['duration'] = $extractedData['duration'] ?? $this->extractMetaValue($extractor, 'duration');
         $extractedData['publishedDate'] = $extractedData['upload_date'] ?? $this->extractMetaValue($extractor, 'datepublished');
-        $extractedData['videoWidth'] = $this->extractMetaValue($extractor, 'og:video:width');
-        $extractedData['videoHeight']  = $this->extractMetaValue($extractor, 'og:video:height');
+        $extractedData['videoWidth'] = $extractedData['width'] ?? $this->extractMetaValue($extractor, 'og:video:width');
+        $extractedData['videoHeight']  = $extractedData['height'] ?? $this->extractMetaValue($extractor, 'og:video:height');
         $extractedData['imageWidth']  = $this->extractMetaValue($extractor, 'og:image:width');
         $extractedData['imageHeight']  = $this->extractMetaValue($extractor, 'og:image:height');
 

@@ -12,6 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class AbstractBookmark implements BookmarkInterface
 {
     /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    protected int $id;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected string $url;
+
+    /**
      * @var string
      */
     protected string $providerName;
@@ -57,11 +69,55 @@ abstract class AbstractBookmark implements BookmarkInterface
     protected VideoSizeInterface $videoSize;
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function getProviderName(): string
+    public function getUrl(): string
     {
-        return $this->getLinkProvider()->getProviderName();
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return $this
+     */
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProviderName(): ?string
+    {
+        if (null !== $linkProvider = $this->getLinkProvider()) {
+            return $linkProvider->getProviderName();
+        }
+
+        return null;
     }
 
     /**
