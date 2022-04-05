@@ -13,7 +13,7 @@
         <arg name="extensions" value="php"/>
 
         <exclude-pattern>src/Kernel.php</exclude-pattern>
-        <exclude-pattern>tests/Behat/DemoContext.php</exclude-pattern>
+        <exclude-pattern>tests/Behat/BookmarkContext.php</exclude-pattern>
 
         <file>bin/</file>
         <file>config/</file>
