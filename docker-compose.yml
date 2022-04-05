@@ -20,7 +20,7 @@ services:
       - "3360:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=ye
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     healthcheck:
       test: [ "CMD", "mysqladmin", "--user=root", "--password=", "--host=127.0.0.1", "ping", "--silent" ]
       interval: 2s
