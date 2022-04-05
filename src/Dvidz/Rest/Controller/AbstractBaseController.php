@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dvidz\Rest\Controller;
 
-use App\Dvidz\Rest\Model\ApiResponseInterface;
-use App\Dvidz\Rest\Model\BookmarkViewModelInterface;
-use App\Dvidz\Rest\Model\JsonApiResponse;
-use App\Dvidz\Rest\Model\ViewModelInterface;
+use App\Dvidz\Rest\Service\BookmarkServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -16,45 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 abstract class AbstractBaseController extends AbstractController
 {
     /**
-     * @param ViewModelInterface $viewModel
-     * @param int                $httpStatus
-     *
-     * @return ApiResponseInterface
+     * @var BookmarkServiceInterface
      */
-    public function createResponse(ViewModelInterface $viewModel, int $httpStatus): ApiResponseInterface
-    {
-        return JsonApiResponse::createResponse($viewModel, $httpStatus);
-    }
+    protected BookmarkServiceInterface $bookmarkService;
 
     /**
-     * @param BookmarkViewModelInterface[] $bookmarks
-     * @param int                          $httpStatus
-     *
-     * @return ApiResponseInterface
+     * @param BookmarkServiceInterface $bookmarkService
      */
-    public function createListResponse(array $bookmarks, int $httpStatus): ApiResponseInterface
+    public function __construct(BookmarkServiceInterface $bookmarkService)
     {
-        return JsonApiResponse::createListResponse($bookmarks, $httpStatus);
-    }
-
-    /**
-     * @param array $data
-     * @param int   $httpStatus
-     *
-     * @return ApiResponseInterface
-     */
-    public function createErrorResponse(array $data, int $httpStatus): ApiResponseInterface
-    {
-        return JsonApiResponse::createErrorResponse($data, $httpStatus);
-    }
-
-    /**
-     * @param int $httpStatus
-     *
-     * @return ApiResponseInterface
-     */
-    public function createEmptyResponse(int $httpStatus): ApiResponseInterface
-    {
-        return JsonApiResponse::createErrorResponse([], $httpStatus);
+        $this->bookmarkService = $bookmarkService;
     }
 }
