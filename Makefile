@@ -1,7 +1,7 @@
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 .PHONY: build
-build: deps start phpcs-install-standard
+build: deps start
 
 .PHONY: deps
 deps: composer-install
@@ -48,10 +48,6 @@ rebuild: composer-env-file
 	docker-compose build --pull --force-rm --no-cache
 	make deps
 	make start
-
-.PHONY: phpcs-install-standard
-phpcs-install-standard:
-	./vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-coding-standard
 
 .PHONY: phpcs
 phpcs:
