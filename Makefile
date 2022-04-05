@@ -51,22 +51,22 @@ rebuild: composer-env-file
 
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs -p
+	docker exec dvidz-php ./vendor/bin/phpcs -p
 
 .PHONY: tests
 tests: phpcs psalm phpunit behat
 
 .PHONY: psalm
 psalm:
-	./vendor/bin/psalm
+	docker exec dvidz-php ./vendor/bin/psalm
 
 .PHONY: phpunit
 phpunit:
-	./vendor/bin/phpunit --testsuite Dvidz
+	docker exec dvidz-php ./vendor/bin/phpunit --testsuite Dvidz
 
 .PHONY: behat
 behat:
-	./vendor/bin/behat
+	docker exec dvidz-php ./vendor/bin/behat
 
 .PHONY: ping-mysql
 ping-mysql:
@@ -74,9 +74,9 @@ ping-mysql:
 
 .PHONY: database-create
 database-create:
-	@docker exec bookmark-manager_php_1 bin/console doctrine:database:create -n
-	@docker exec bookmark-manager_php_1 bin/console doctrine:migrations:migrate -n
+	docker exec dvidz-php bin/console doctrine:database:create -n
+	docker exec dvidz-php bin/console doctrine:migrations:migrate -n
 
 .PHONY: database-drop
 database-drop:
-	bin/console doctrine:database:drop --force
+	docker exec dvidz-php bin/console doctrine:database:drop --force
