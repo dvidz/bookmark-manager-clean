@@ -66,7 +66,7 @@ psalm:
 
 .PHONY: phpunit
 phpunit:
-	./vendor/bin/phpunit --testsuite app
+	./vendor/bin/phpunit --testsuite Dvidz
 
 .PHONY: behat
 behat:
@@ -75,3 +75,12 @@ behat:
 .PHONY: ping-mysql
 ping-mysql:
 	@docker exec dvidz-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
+
+.PHONY: database-create
+database-create:
+	@docker exec bookmark-manager_php_1 bin/console doctrine:database:create -n
+	@docker exec bookmark-manager_php_1 bin/console doctrine:migrations:migrate -n
+
+.PHONY: database-drop
+database-drop:
+	bin/console doctrine:database:drop --force
