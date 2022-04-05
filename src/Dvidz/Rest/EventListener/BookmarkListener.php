@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
@@ -48,13 +49,20 @@ class BookmarkListener implements EventSubscriberInterface
     protected RequestEvent $requestEvent;
 
     /**
+     * @var MessageBusInterface
+     */
+    protected MessageBusInterface $bus;
+
+    /**
      * @param TagAwareCacheInterface $bookmarkCache
      * @param BookmarkService        $bookmarkService
+     * @param MessageBusInterface    $bus
      */
-    public function __construct(TagAwareCacheInterface $bookmarkCache, BookmarkService $bookmarkService)
+    public function __construct(TagAwareCacheInterface $bookmarkCache, BookmarkService $bookmarkService, MessageBusInterface $bus)
     {
         $this->cache = $bookmarkCache;
         $this->bookmarkService = $bookmarkService;
+        $this->bus = $bus;
     }
 
     /**
@@ -102,7 +110,7 @@ class BookmarkListener implements EventSubscriberInterface
 
             $response = $this->cache->get(urlencode($url), function (ItemInterface $item) {
                 $item->tag('item');
-                $postBookmarkController = new PostBookmarkController($this->bookmarkService);
+                $postBookmarkController = new PostBookmarkController($this->bookmarkService, $this->bus);
                 /** @psalm-suppress UndefinedInterfaceMethod */
                 $this->cache->invalidateTags(['list']);
 
@@ -116,7 +124,7 @@ class BookmarkListener implements EventSubscriberInterface
         if ('api_bookmark_list' === $this->requestEvent->getRequest()->get('_route')) {
             $response = $this->cache->get('bookmark_list', function (ItemInterface $item) {
                 $item->tag('list');
-                $listBookmarkController = new ListBookmarkController($this->bookmarkService);
+                $listBookmarkController = new ListBookmarkController($this->bookmarkService, $this->bus);
 
                 return $listBookmarkController();
             });
@@ -140,7 +148,7 @@ class BookmarkListener implements EventSubscriberInterface
                 );
             }
 
-            $removeBookmarkController = new RemoveBookmarkController($this->bookmarkService);
+            $removeBookmarkController = new RemoveBookmarkController($this->bookmarkService, $this->bus);
             $response = $removeBookmarkController($bookmark);
 
             $this->cache->delete(urlencode($bookmark->getUrl()));

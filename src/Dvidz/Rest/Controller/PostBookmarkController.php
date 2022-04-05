@@ -3,6 +3,7 @@
 namespace App\Dvidz\Rest\Controller;
 
 use App\Dvidz\Rest\Exception\MediaTypeException;
+use App\Dvidz\Rest\Message\NewBookmark;
 use App\Dvidz\Rest\Model\BookmarkViewModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,11 @@ class PostBookmarkController extends AbstractBaseController
         }
 
         try {
+            // Bookmark the link.
             $bookmark = $this->bookmarkService->bookmark(strval($linkToBookmark));
+
+            // Dispatch a NewBookmark message.
+            $this->bus->dispatch(new NewBookmark($bookmark->getId()));
 
             return new JsonResponse(BookmarkViewModel::getViewModel($bookmark), Response::HTTP_CREATED);
         } catch (MediaTypeException|\Exception $e) {
