@@ -6,6 +6,7 @@ namespace App\Dvidz\Rest\Controller;
 
 use App\Dvidz\Rest\Service\BookmarkServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Class AbstractBaseController.
@@ -18,10 +19,17 @@ abstract class AbstractBaseController extends AbstractController
     protected BookmarkServiceInterface $bookmarkService;
 
     /**
-     * @param BookmarkServiceInterface $bookmarkService
+     * @var MessageBusInterface
      */
-    public function __construct(BookmarkServiceInterface $bookmarkService)
+    protected MessageBusInterface $bus;
+
+    /**
+     * @param BookmarkServiceInterface $bookmarkService
+     * @param MessageBusInterface      $bus
+     */
+    public function __construct(BookmarkServiceInterface $bookmarkService, MessageBusInterface $bus)
     {
         $this->bookmarkService = $bookmarkService;
+        $this->bus = $bus;
     }
 }

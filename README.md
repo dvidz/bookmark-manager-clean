@@ -38,8 +38,21 @@
    2. `make database-create`
 3. Execute phpcs, psalm, phpunit and behat tests: `make tests`
 
+### Mysql is alive?
+1. ping the mysql container: `make ping-mysql`
+
+### Docker containers
+1. Build containers: `make build`
+2. Stop containers: `make stop`
+3. Destroy containers: `make destroy`
+
+### Documentation phpdoc
+1. run symfony server
+   1. `symfony server:start --dir=phpdoc`
+   2. Open browser to view phpdoc in html format : `http://127.0.0.1:8001` or `http://127.0.0.1:8000`
+
 ### Directory structure
-```scala
+```
 $ tree -L 4 src
 
 src
