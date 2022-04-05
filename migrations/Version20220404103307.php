@@ -62,4 +62,9 @@ final class Version20220404103307 extends AbstractMigration
         $this->addSql('DROP TABLE type_link_video_size');
         $this->addSql('DROP TABLE video_size');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

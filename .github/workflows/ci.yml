@@ -29,7 +29,17 @@ jobs:
               sleep 2
           done
 
+      - name: Create Database
+        env:
+          DATABASE_URL: "mysql://root@127.0.0.1:3360/bookmark_manager?serverVersion=5.7&charset=utf8mb4"
+        run: bin/console doctrine:database:create
+
+      - name: Apply migration
+        env:
+          DATABASE_URL: "mysql://root@127.0.0.1:3360/bookmark_manager?serverVersion=5.7&charset=utf8mb4"
+        run: bin/console doctrine:migrations:migrate
+
       - name: Run the tests
         run: make tests
         env:
-          DATABASE_URL: '####'
+          DATABASE_URL: "mysql://root@127.0.0.1:3360/bookmark_manager?serverVersion=5.7&charset=utf8mb4"
