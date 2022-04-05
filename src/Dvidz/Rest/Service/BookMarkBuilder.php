@@ -97,7 +97,7 @@ class BookMarkBuilder implements BookmarkBuilderInterface
      */
     public function buildMediaSize(BookmarkModelDto $bookmarkModelDto): MediaSizeInterface
     {
-        // TODO : Add a strategy pattern in order to make this smell code smelling like a flower ;)>.
+        // TODO : Add a strategy pattern.
         if ('video' === $bookmarkModelDto->type) {
             if (!empty($videoSize = $this->videoSizeRepository->findOneBy([
                 'width' => $bookmarkModelDto->videoWidth,

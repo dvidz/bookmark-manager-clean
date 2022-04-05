@@ -19,7 +19,7 @@ abstract class AbstractBookmark implements BookmarkInterface
     protected int $id;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="text", nullable=false)
      */
     protected string $url;
 
