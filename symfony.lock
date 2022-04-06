@@ -325,9 +325,6 @@
             "phpcs.xml.dist"
         ]
     },
-    "symfony/amqp-messenger": {
-        "version": "v5.4.5"
-    },
     "symfony/browser-kit": {
         "version": "v5.4.3"
     },
@@ -461,9 +458,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.23.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.23.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.23.0"
     },
@@ -477,9 +471,6 @@
         "version": "v5.4.7"
     },
     "symfony/proxy-manager-bridge": {
-        "version": "v5.4.6"
-    },
-    "symfony/redis-messenger": {
         "version": "v5.4.6"
     },
     "symfony/routing": {

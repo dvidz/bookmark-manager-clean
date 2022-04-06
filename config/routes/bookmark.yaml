@@ -1,14 +1,14 @@
 api_bookmark_list:
     path: /api/bookmark
-    controller: App\Dvidz\Rest\Controller\ListBookmarkController
+    controller: App\Symfony\Rest\Controller\ListBookmarkController
     methods:  [GET]
 
 api_bookmark_create:
     path: /api/bookmark
-    controller: App\Dvidz\Rest\Controller\PostBookmarkController
+    controller: App\Symfony\Rest\Controller\PostBookmarkController
     methods:  [POST]
 
 api_bookmark_delete:
     path: /api/bookmark/{id}
-    controller: App\Dvidz\Rest\Controller\RemoveBookmarkController
+    controller: App\Symfony\Rest\Controller\RemoveBookmarkController
     methods:  [DELETE]

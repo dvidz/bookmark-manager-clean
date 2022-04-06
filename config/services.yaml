@@ -13,14 +13,20 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
+#    App\:
+#        resource: '../src'
     App\:
         resource: '../src'
+
+    App\Symfony\Rest\Controller\:
+        resource: '../src/Symfony/Rest/Controller'
+        tags: [ 'controller.service_arguments' ]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     Embed\Embed:
 
     message_handlers:
-        namespace: App\Dvidz\Rest\MessageHandler\
-        resource: '../src/Dvidz/Rest/MessageHandler'
+        namespace: App\Symfony\Rest\MessageHandler\
+        resource: '../src/Symfony/Rest/MessageHandler'
         tags: [ 'messenger.message_handler' ]
