@@ -1,5 +1,5 @@
 .idea/
-INSTRUCTIONS.md
+.phpdoc/
 
 ###> symfony/framework-bundle ###
 /.env.local
