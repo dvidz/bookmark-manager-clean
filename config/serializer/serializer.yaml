@@ -1,0 +1,12 @@
+Dvidz\Bookmark\Domain\Aggregate\Bookmark:
+    attributes:
+        uuid:
+            groups: [ 'group1' ]
+        url:
+            groups: ['group1']
+
+Dvidz\Bookmark\Domain\ValueObject\Url:
+    attributes:
+        value:
+            groups: ['group1', 'group2']
+

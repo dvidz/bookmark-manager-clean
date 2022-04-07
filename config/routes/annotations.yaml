@@ -1,7 +1,3 @@
-#controllers:
-#    resource: ../../src/Dvidz/Rest/Controller/
-#    type: annotation
-
 kernel:
-    resource: ../../src/Symfony/Kernel.php
+    resource: ../../src/Dvidz/Shared/Infrastructure/Symfony/Kernel.php
     type: annotation

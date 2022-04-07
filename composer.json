@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "embed/embed": "^4.4",
+        "ramsey/uuid": "^4.3",
         "sensio/framework-extra-bundle": "^6.2",
         "slim/psr7": "^1.5",
         "symfony/cache": "6.0.*",
@@ -36,6 +37,7 @@
         "friends-of-behat/symfony-extension": "^2.3",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
+        "symfony/maker-bundle": "^1.38",
         "symfony/phpunit-bridge": "^6.0",
         "vimeo/psalm": "^4.22"
     },
@@ -52,8 +54,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "App\\Symfony\\Rest\\": "src/Symfony/Rest/"
+            "Dvidz\\": "src/Dvidz/"
         }
     },
     "autoload-dev": {

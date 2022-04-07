@@ -1,6 +1,6 @@
 <?php
 
-use App\Symfony\Kernel;
+use Dvidz\Shared\Infrastructure\Symfony\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 

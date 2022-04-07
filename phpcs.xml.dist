@@ -5,6 +5,7 @@
 
         <rule ref="./vendor/escapestudios/symfony2-coding-standard/Symfony">
             <exclude name="Symfony.Commenting.License.Warning"/>
+            <exclude name="Squiz.Classes.ValidClassName" />
         </rule>
 
         <arg name="basepath" value="."/>
