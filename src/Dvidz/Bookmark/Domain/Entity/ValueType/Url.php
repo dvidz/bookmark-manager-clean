@@ -1,6 +1,6 @@
 <?php
 
-namespace Dvidz\Bookmark\Domain;
+namespace Dvidz\Bookmark\Domain\Entity\ValueType;
 
 use Dvidz\Shared\Domain\ValueObject\StringableValueObject;
 

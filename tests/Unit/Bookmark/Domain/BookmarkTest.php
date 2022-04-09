@@ -6,17 +6,17 @@ namespace App\Tests\Unit\Bookmark\Domain;
 
 use Api\Bookmark\Repository\InMemoryBookmarkRepository;
 use Dvidz\Bookmark\Application\Create\Command\BookmarkCreator;
-use Dvidz\Bookmark\Domain\Author;
-use Dvidz\Bookmark\Domain\Bookmark;
-use Dvidz\Bookmark\Domain\BookmarkedAt;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Author;
+use Dvidz\Bookmark\Domain\Entity\ValueType\BookmarkedAt;
+use Dvidz\Bookmark\Domain\Entity\ValueType\MediaSize;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Provider;
+use Dvidz\Bookmark\Domain\Entity\ValueType\PublishedAt;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Title;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Type;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
 use Dvidz\Bookmark\Domain\ImageSize;
-use Dvidz\Bookmark\Domain\MediaSize;
-use Dvidz\Bookmark\Domain\Provider;
-use Dvidz\Bookmark\Domain\PublishedAt;
-use Dvidz\Bookmark\Domain\Title;
-use Dvidz\Bookmark\Domain\Type;
-use Dvidz\Bookmark\Domain\Url;
 use Dvidz\Bookmark\Domain\VideoSize;
 use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
@@ -107,7 +107,7 @@ class BookmarkTest extends TestCase
 
         $this->assertInstanceOf(Type::class, $bookmark->type());
 
-        $this->assertInstanceOf(ImageSize::class, $bookmark->mediaSize());
+        $this->assertInstanceOf(MediaSize::class, $bookmark->mediaSize());
         $this->assertEquals($data['width'], $bookmark->mediaSize()->width());
         $this->assertEquals($data['height'], $bookmark->mediaSize()->height());
     }

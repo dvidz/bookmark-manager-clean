@@ -10,12 +10,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Bookmark:
+            bookmark:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/../../src/Dvidz/Bookmark/Infrastructure/Persistence/Doctrine'
-                prefix: 'Dvidz\Bookmark\Domain'
-                alias: Bookmark
+                prefix: 'Dvidz\Bookmark\Domain\Entity'
+                alias: bookmark
 
 
 #when@test:

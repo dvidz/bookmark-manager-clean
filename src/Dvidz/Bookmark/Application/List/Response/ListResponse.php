@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Application\List\Response;
 
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Shared\Domain\Bus\Response\Response;
 
 /**
@@ -12,7 +13,7 @@ use Dvidz\Shared\Domain\Bus\Response\Response;
 class ListResponse implements Response
 {
     /**
-     * @param array $bookmarks
+     * @param Bookmark[] $bookmarks
      */
     public function __construct(protected array $bookmarks)
     {
@@ -21,7 +22,7 @@ class ListResponse implements Response
     /**
      * @return array
      */
-    public function list(): array
+    public function respond(): array
     {
         return $this->bookmarks;
     }

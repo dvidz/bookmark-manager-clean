@@ -4,8 +4,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="Dvidz\Bookmark\Domain\Provider">
-        <field name="value" column="provider" length="100" />
+    <embeddable name="Dvidz\Bookmark\Domain\Entity\ValueType\MediaSize">
+        <field name="width" type="integer" column="width" />
+        <field name="height" type="integer" column="height" />
+        <field name="duration" type="integer" column="duration" nullable="true" />
     </embeddable>
 
 </doctrine-mapping>

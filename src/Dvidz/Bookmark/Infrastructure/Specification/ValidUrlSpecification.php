@@ -6,9 +6,9 @@ namespace Dvidz\Bookmark\Infrastructure\Specification;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
 use Dvidz\Bookmark\Domain\Specification\UrlSpecification;
-use Dvidz\Bookmark\Domain\Url;
 
 /**
  * Class ValidUrlSpecification.

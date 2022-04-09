@@ -4,8 +4,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="Dvidz\Bookmark\Domain\Author">
-        <field name="value" column="author" length="100" />
+    <embeddable name="Dvidz\Bookmark\Domain\Entity\ValueType\Provider">
+        <field name="value" column="provider" length="100" />
     </embeddable>
 
 </doctrine-mapping>

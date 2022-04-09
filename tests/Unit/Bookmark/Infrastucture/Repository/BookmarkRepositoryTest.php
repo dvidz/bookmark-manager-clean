@@ -3,8 +3,8 @@
 namespace App\Tests\Unit\Bookmark\Infrastucture\Repository;
 
 use Api\Bookmark\Repository\BookmarkRepository;
-use Dvidz\Bookmark\Domain\Bookmark;
-use Dvidz\Bookmark\Domain\Url;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -14,6 +14,8 @@ class BookmarkRepositoryTest extends TestCase
      * @test
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function given_a_bookmark_it_should_save()
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Bookmark\Repository;
 
-use Dvidz\Bookmark\Domain\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Domain\Repository\BookmarkRepository as DomainBookmarkRepository;
 use Dvidz\Shared\Infrastructure\Symfony\Repository\BaseRepository;
 

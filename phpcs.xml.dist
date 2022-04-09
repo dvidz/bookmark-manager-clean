@@ -14,7 +14,7 @@
         <arg name="extensions" value="php"/>
 
         <exclude-pattern>apps/api/src/Kernel.php</exclude-pattern>
-        <exclude-pattern>tests/Behat/BookmarkContext.php</exclude-pattern>
+        <exclude-pattern>tests/</exclude-pattern>
 
         <file>apps/api/src</file>
         <file>src/Dvidz</file>

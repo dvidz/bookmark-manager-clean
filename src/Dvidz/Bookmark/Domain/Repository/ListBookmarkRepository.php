@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Domain\Repository;
 
-use Dvidz\Bookmark\Domain\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
 
 /**
  * interface ListBookmarkRepository.

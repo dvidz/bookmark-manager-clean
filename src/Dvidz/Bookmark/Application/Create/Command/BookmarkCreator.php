@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Application\Create\Command;
 
-use Dvidz\Bookmark\Domain\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
 use Dvidz\Bookmark\Domain\Repository\BookmarkRepository;
 use Dvidz\Bookmark\Domain\Specification\UrlSpecification;
-use Dvidz\Bookmark\Domain\Url;
 use Dvidz\Shared\Domain\ValueObject\UuidInterface;
 
 /**

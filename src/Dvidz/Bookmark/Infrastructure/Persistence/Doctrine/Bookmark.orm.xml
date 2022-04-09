@@ -4,16 +4,16 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Dvidz\Bookmark\Domain\Bookmark" table="bookmark">
+    <entity name="Dvidz\Bookmark\Domain\Entity\Bookmark" table="bookmark">
         <id name="uuid" type="string" column="uuid" length="36" />
-        <embedded name="url" class="Dvidz\Bookmark\Domain\Url" use-column-prefix="false" />
-        <embedded name="provider" class="Dvidz\Bookmark\Domain\Provider" use-column-prefix="false" />
-        <embedded name="type" class="Dvidz\Bookmark\Domain\Type" use-column-prefix="false" />
-        <embedded name="title" class="Dvidz\Bookmark\Domain\Title" use-column-prefix="false" />
-        <embedded name="author" class="Dvidz\Bookmark\Domain\Author" use-column-prefix="false" />
+        <embedded name="url" class="Dvidz\Bookmark\Domain\Entity\ValueType\Url" use-column-prefix="false" />
+        <embedded name="provider" class="Dvidz\Bookmark\Domain\Entity\ValueType\Provider" use-column-prefix="false" />
+        <embedded name="type" class="Dvidz\Bookmark\Domain\Entity\ValueType\Type" use-column-prefix="false" />
+        <embedded name="title" class="Dvidz\Bookmark\Domain\Entity\ValueType\Title" use-column-prefix="false" />
+        <embedded name="author" class="Dvidz\Bookmark\Domain\Entity\ValueType\Author" use-column-prefix="false" />
         <field  name="bookmarkedAt" type="datetime" column="bookmarked_at" />
         <field  name="publishedAt" type="datetime" column="published_at" />
-        <embedded name="mediaSize" class="Dvidz\Bookmark\Domain\MediaSize" use-column-prefix="false" />
+        <embedded name="mediaSize" class="Dvidz\Bookmark\Domain\Entity\ValueType\MediaSize" use-column-prefix="false" />
     </entity>
 
 </doctrine-mapping>

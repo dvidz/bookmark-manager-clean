@@ -9,7 +9,7 @@ use Dvidz\Shared\Domain\ValueObject\UuidInterface;
 /**
  * Abstract class AggregateRoot.
  */
-abstract class BookmarkRoot
+abstract class AggregateRoot
 {
     /**
      * @var string

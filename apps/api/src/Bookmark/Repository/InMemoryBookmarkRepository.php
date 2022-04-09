@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Bookmark\Repository;
 
-use Api\Bookmark\Entity\Bookmark as BookmarkEntity;
-use Dvidz\Bookmark\Domain\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Domain\Repository\BookmarkRepository as DomainBookmarkRepository;
 
 /**
@@ -14,7 +13,7 @@ use Dvidz\Bookmark\Domain\Repository\BookmarkRepository as DomainBookmarkReposit
 class InMemoryBookmarkRepository implements DomainBookmarkRepository
 {
     /**
-     * @var BookmarkEntity[]
+     * @var Bookmark[]
      */
     protected array $bookmarks;
 
@@ -25,15 +24,13 @@ class InMemoryBookmarkRepository implements DomainBookmarkRepository
      */
     public function bookmark(Bookmark $bookmark): void
     {
-        $bookmarkEntity = BookmarkEntity::fromArray($bookmark->toArray());
-
-        $this->addBookmark($bookmarkEntity);
+        $this->addBookmark($bookmark);
     }
 
     /**
      * @param string $uuid
      *
-     * @return BookmarkEntity
+     * @return Bookmark
      */
     public function getBookmark(string $uuid)
     {
@@ -41,12 +38,12 @@ class InMemoryBookmarkRepository implements DomainBookmarkRepository
     }
 
     /**
-     * @param BookmarkEntity $bookmarkEntity
+     * @param Bookmark $bookmark
      *
      * @return void
      */
-    private function addBookmark(BookmarkEntity $bookmarkEntity)
+    private function addBookmark(Bookmark $bookmark)
     {
-        $this->bookmarks[$bookmarkEntity->getUuid()] = $bookmarkEntity;
+        $this->bookmarks[$bookmark->uuid()] = $bookmark;
     }
 }

@@ -9,4 +9,8 @@ namespace Dvidz\Shared\Domain\Bus\Response;
  */
 interface Response
 {
+    /**
+     * @return array
+     */
+    public function respond(): array;
 }

@@ -9,7 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Dvidz\Bookmark\Application\Create\Command\BookmarkCommand;
 use Dvidz\Bookmark\Application\Create\Command\BookmarkCommandHandler;
 use Dvidz\Bookmark\Application\Create\Command\BookmarkCreator;
-use Dvidz\Bookmark\Domain\Bookmark;
+use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;

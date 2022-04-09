@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Domain\Specification;
 
+use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
-use Dvidz\Bookmark\Domain\Url;
 use Dvidz\Shared\Domain\Specification\Specification;
 
 /**
