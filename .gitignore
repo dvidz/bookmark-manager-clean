@@ -21,11 +21,12 @@
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
 ###> friends-of-behat/symfony-extension ###
 /behat.yml
 ###< friends-of-behat/symfony-extension ###
+
+###> Api Bookmark Manager - Symfony implementation
+apps/api/var/
+apps/api/vendor/
+apps/api/public/bundles/
+###< Api Bookmark Manager - Symfony implementation

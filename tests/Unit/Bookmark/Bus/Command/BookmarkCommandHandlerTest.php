@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Bookmark\Bus\Command;
 
+use Api\Kernel;
 use Doctrine\Persistence\ManagerRegistry;
-use Dvidz\Bookmark\Application\Bus\Command\BookmarkCommand;
-use Dvidz\Bookmark\Application\Bus\Command\BookmarkCommandHandler;
-use Dvidz\Bookmark\Application\Bus\Command\BookmarkCreator;
-use Dvidz\Bookmark\Infrastructure\Entity\Bookmark;
-use Dvidz\Bookmark\Infrastructure\Repository\BookmarkRepository;
+use Dvidz\Bookmark\Application\Create\Command\BookmarkCommand;
+use Dvidz\Bookmark\Application\Create\Command\BookmarkCommandHandler;
+use Dvidz\Bookmark\Application\Create\Command\BookmarkCreator;
+use Dvidz\Bookmark\Domain\Bookmark;
 use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
-use Dvidz\Shared\Infrastructure\Symfony\Kernel;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;
 

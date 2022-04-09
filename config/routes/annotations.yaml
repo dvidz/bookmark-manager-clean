@@ -1,3 +1,0 @@
-kernel:
-    resource: ../../src/Dvidz/Shared/Infrastructure/Symfony/Kernel.php
-    type: annotation

@@ -1,4 +1,0 @@
-api_bookmark:
-    path: /api/bookmark
-    controller: Dvidz\Bookmark\Infrastructure\Controller\BookmarkController
-    methods:  [GET]

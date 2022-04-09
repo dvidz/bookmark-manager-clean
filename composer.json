@@ -54,7 +54,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Dvidz\\": "src/Dvidz/"
+            "Dvidz\\": "src/Dvidz/",
+            "Api\\": "apps/api/src/"
         }
     },
     "autoload-dev": {

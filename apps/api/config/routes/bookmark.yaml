@@ -1,0 +1,9 @@
+api_bookmark:
+    path: /api/bookmark
+    controller: Api\Bookmark\Controller\BookmarkController
+    methods:  [GET]
+
+api_bookmark_list:
+    path: /api/bookmark/list
+    controller: Api\Bookmark\Controller\ListBookmarkController
+    methods:  [GET]
