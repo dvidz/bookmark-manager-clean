@@ -1,5 +1,5 @@
 <h1 align="center">
-  Bookmark Manager
+  Bookmark Manager - DDD CQRS
 </h1>
 
 <p align="center">

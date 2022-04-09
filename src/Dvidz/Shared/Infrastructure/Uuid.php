@@ -2,7 +2,7 @@
 
 namespace Dvidz\Shared\Infrastructure;
 
-use Dvidz\Shared\Domain\ValueObject\UuidInterface as DomainUuidInterface;
+use Dvidz\Shared\Domain\Entity\ValueObject\UuidInterface as DomainUuidInterface;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 
 /**

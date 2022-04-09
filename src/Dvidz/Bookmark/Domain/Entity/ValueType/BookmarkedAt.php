@@ -2,7 +2,7 @@
 
 namespace Dvidz\Bookmark\Domain\Entity\ValueType;
 
-use Dvidz\Shared\Domain\ValueObject\DateTimeValueObject;
+use Dvidz\Shared\Domain\Entity\ValueObject\DateTimeValueObject;
 
 /**
  * Class BookmarkedAt.

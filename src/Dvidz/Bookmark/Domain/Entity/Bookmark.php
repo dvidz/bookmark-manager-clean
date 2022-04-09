@@ -12,8 +12,8 @@ use Dvidz\Bookmark\Domain\Entity\ValueType\PublishedAt;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Title;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Type;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
-use Dvidz\Shared\Domain\AggregateRoot;
-use Dvidz\Shared\Domain\ValueObject\UuidInterface;
+use Dvidz\Shared\Domain\Entity\AggregateRoot;
+use Dvidz\Shared\Domain\Entity\ValueObject\UuidInterface;
 
 /**
  * Class Bookmark.
@@ -109,9 +109,9 @@ class Bookmark extends AggregateRoot
     }
 
     /**
-     * @return BookmarkedAt
+     * @return \DateTime
      */
-    public function bookmarkedAt(): BookmarkedAt
+    public function bookmarkedAt(): \DateTime
     {
         return $this->bookmarkedAt;
     }
@@ -119,7 +119,7 @@ class Bookmark extends AggregateRoot
     /**
      * @return PublishedAt
      */
-    public function publishedAt(): PublishedAt
+    public function publishedAt(): \DateTime
     {
         return $this->publishedAt;
     }

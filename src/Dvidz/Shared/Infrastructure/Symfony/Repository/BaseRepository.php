@@ -14,10 +14,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 abstract class BaseRepository extends ServiceEntityRepository
 {
     /**
-     * @param ManagerRegistry     $registry
-     * @param SerializerInterface $serializer
+     * @param ManagerRegistry $registry
      */
-    public function __construct(ManagerRegistry $registry, protected SerializerInterface $serializer)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, $this->className());
     }

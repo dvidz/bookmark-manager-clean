@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Bookmark\Domain;
 
 use Api\Bookmark\Repository\InMemoryBookmarkRepository;
-use Dvidz\Bookmark\Application\Create\Command\BookmarkCreator;
+use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCreator;
 use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Author;
 use Dvidz\Bookmark\Domain\Entity\ValueType\BookmarkedAt;
@@ -16,8 +16,6 @@ use Dvidz\Bookmark\Domain\Entity\ValueType\Title;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Type;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
-use Dvidz\Bookmark\Domain\ImageSize;
-use Dvidz\Bookmark\Domain\VideoSize;
 use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;

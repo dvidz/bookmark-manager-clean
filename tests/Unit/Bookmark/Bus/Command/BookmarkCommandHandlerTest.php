@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Bookmark\Bus\Command;
 
+use Api\Bookmark\Repository\BookmarkRepository;
 use Api\Kernel;
 use Doctrine\Persistence\ManagerRegistry;
-use Dvidz\Bookmark\Application\Create\Command\BookmarkCommand;
-use Dvidz\Bookmark\Application\Create\Command\BookmarkCommandHandler;
-use Dvidz\Bookmark\Application\Create\Command\BookmarkCreator;
+use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommand;
+use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommandHandler;
+use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCreator;
 use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
@@ -41,7 +42,7 @@ class BookmarkCommandHandlerTest extends TestCase
 
         /** @var ManagerRegistry $managerRegistry */
         $managerRegistry = $kernel->getContainer()->get('doctrine');
-        $repository = $managerRegistry->getRepository(Bookmark::class);
+        $repository = new BookmarkRepository($managerRegistry);
 
         $command = new BookmarkCommand(
             'https://vimeo.com/345678/',

@@ -2,7 +2,7 @@
 
 namespace Api\Bookmark\Controller;
 
-use Dvidz\Bookmark\Application\Create\Command\BookmarkCommand;
+use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommand;
 use Dvidz\Shared\Infrastructure\Symfony\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

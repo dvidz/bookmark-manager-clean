@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Dvidz\Shared\Infrastructure\Symfony\Controller;
 
-use Dvidz\Shared\Domain\Bus\Command\CommandBus;
-use Dvidz\Shared\Domain\Bus\Command\Command;
-use Dvidz\Shared\Domain\Bus\Query\Query;
-use Dvidz\Shared\Domain\Bus\Query\QueryBus;
-use Dvidz\Shared\Domain\Bus\Response\Response;
-use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;
+use Dvidz\Shared\Domain\Command\Command;
+use Dvidz\Shared\Domain\Command\CommandBus;
+use Dvidz\Shared\Domain\Model\ListViewModel;
+use Dvidz\Shared\Domain\Presenter\Presenter;
+use Dvidz\Shared\Domain\Query\Query;
+use Dvidz\Shared\Domain\Query\QueryBus;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;
 
 /**
  * Class AbstractController.
@@ -19,7 +20,7 @@ abstract class AbstractController extends SymfonyAbstractController
     /**
      * @param CommandBus $commandBus
      */
-    public function __construct(private CommandBus $commandBus, private QueryBus $queryBus)
+    public function __construct(private CommandBus $commandBus, private QueryBus $queryBus, private Presenter $presenter)
     {
     }
 
@@ -36,10 +37,13 @@ abstract class AbstractController extends SymfonyAbstractController
     /**
      * @param Query $query
      *
-     * @return Response|null
+     * @return ListViewModel
      */
-    protected function ask(Query $query): ?Response
+    protected function ask(Query $query): ListViewModel
     {
-        return $this->queryBus->ask($query);
+        $response = $this->queryBus->ask($query);
+        $this->presenter->present($response);
+
+        return $this->presenter->getView();
     }
 }
