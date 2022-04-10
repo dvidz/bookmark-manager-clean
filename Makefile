@@ -54,7 +54,7 @@ phpcs:
 	docker exec dvidz-php ./vendor/bin/phpcs -p
 
 .PHONY: tests
-tests: phpcs psalm phpunit behat
+tests: phpcs phpunit
 
 .PHONY: psalm
 psalm:

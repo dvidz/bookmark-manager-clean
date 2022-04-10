@@ -32,10 +32,10 @@ jobs:
           done
 
       - name: Create Database
-        run: bin/console doctrine:database:create
+        run: apps/api/bin/console doctrine:database:create
 
       - name: Apply migration
-        run: bin/console doctrine:migrations:migrate
+        run: apps/api/bin/console doctrine:migrations:migrate
 
       - name: Run the tests
         run: make tests

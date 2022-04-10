@@ -29,13 +29,13 @@ class BookmarkListListViewModel implements ListViewModel, ViewModel
     }
 
     /**
-     * @param Response $reponse
+     * @param Response $response
      *
-     * @return $this
+     * @return static
      */
-    public static function createFromResponse(Response $reponse): self
+    public static function createFromResponse(Response $response): self
     {
-        return new self($reponse);
+        return new self($response);
     }
 
     /**

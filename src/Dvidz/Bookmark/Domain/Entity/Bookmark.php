@@ -21,17 +21,17 @@ use Dvidz\Shared\Domain\Entity\ValueObject\UuidInterface;
 class Bookmark extends AggregateRoot
 {
     /**
-     * @param UuidInterface $uuid
+     * @param UuidInterface $uuidInterface
      * @param Url           $url
      * @param Provider      $provider
      * @param Title         $title
      * @param Author        $author
-     * @param \DateTime     $publishedAt
-     * @param \DateTime     $bookmarkedAt
+     * @param \Datetime     $publishedAt
+     * @param \Datetime     $bookmarkedAt
      * @param Type          $type
      * @param MediaSize     $mediaSize
      */
-    private function __construct (
+    private function __construct(
         protected UuidInterface $uuidInterface,
         protected Url $url,
         protected Provider $provider,

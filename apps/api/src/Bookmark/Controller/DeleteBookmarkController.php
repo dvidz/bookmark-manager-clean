@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Api\Bookmark\Controller;
 
 use Api\Bookmark\Command\DeleteBookmarkCommandBus;
-use Dvidz\Bookmark\Application\DeleteBookmark\DeleteBookmarkCommande;
+use Dvidz\Bookmark\Application\DeleteBookmark\DeleteBookmarkCommand;
 use Dvidz\Shared\Infrastructure\Symfony\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class DeleteBookmarkController extends AbstractController
     public function __invoke(Request $request): Response
     {
         $id = $request->get('id');
-        $this->dispatch(new DeleteBookmarkCommande($id));
+        $this->dispatch(new DeleteBookmarkCommand($id));
 
         return new JsonResponse('removed', Response::HTTP_NO_CONTENT);
     }

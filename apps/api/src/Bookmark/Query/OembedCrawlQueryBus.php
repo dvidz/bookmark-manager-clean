@@ -15,6 +15,9 @@ use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
+/**
+ * Class OembedCrawlQueryBus.
+ */
 class OembedCrawlQueryBus implements QueryBus
 {
     /**
