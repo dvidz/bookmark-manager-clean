@@ -7,6 +7,7 @@ namespace Dvidz\Shared\Infrastructure\Symfony\Controller;
 use Dvidz\Shared\Domain\Command\Command;
 use Dvidz\Shared\Domain\Command\CommandBus;
 use Dvidz\Shared\Domain\Model\ListViewModel;
+use Dvidz\Shared\Domain\Model\ViewModel;
 use Dvidz\Shared\Domain\Presenter\Presenter;
 use Dvidz\Shared\Domain\Query\Query;
 use Dvidz\Shared\Domain\Query\QueryBus;
@@ -37,9 +38,9 @@ abstract class AbstractController extends SymfonyAbstractController
     /**
      * @param Query $query
      *
-     * @return ListViewModel
+     * @return ViewModel
      */
-    protected function ask(Query $query): ListViewModel
+    protected function ask(Query $query): ViewModel
     {
         $response = $this->queryBus->ask($query);
         $this->presenter->present($response);

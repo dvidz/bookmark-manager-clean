@@ -6,12 +6,13 @@ namespace Dvidz\Bookmark\Infrastructure\Model;
 
 use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Shared\Domain\Model\ListViewModel;
+use Dvidz\Shared\Domain\Model\ViewModel;
 use Dvidz\Shared\Domain\Response\Response;
 
 /**
  * class BookmarkListViewModel.
  */
-class BookmarkListListViewModel implements ListViewModel
+class BookmarkListListViewModel implements ListViewModel, ViewModel
 {
     protected array $list = [];
 

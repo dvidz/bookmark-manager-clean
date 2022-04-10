@@ -43,15 +43,15 @@ class BookmarkController extends AbstractController
         $oEmbedViewModel = $this->ask(new UrlCrawlerQuery($url));
         $this->dispatch(
             new BookmarkCommand(
-                'http://vimeo.com/776645778',
-                'Vimeo',
-                'Super titre',
-                'David .S',
-                '2019-04-01',
-                'video',
-                1080,
-                720,
-                254
+                $url,
+                $oEmbedViewModel->provider,
+                $oEmbedViewModel->title,
+                $oEmbedViewModel->author,
+                $oEmbedViewModel->publishedAt,
+                $oEmbedViewModel->type,
+                $oEmbedViewModel->width,
+                $oEmbedViewModel->height,
+                $oEmbedViewModel->duration,
             )
         );
 

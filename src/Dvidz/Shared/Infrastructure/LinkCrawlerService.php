@@ -58,6 +58,6 @@ class LinkCrawlerService implements CrawlerInterface
             $meta = $meta[0] ?? null;
         }
 
-        return $meta ?? null;
+        return $meta;
     }
 }

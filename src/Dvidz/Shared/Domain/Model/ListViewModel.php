@@ -12,13 +12,6 @@ use Dvidz\Shared\Domain\Response\Response;
 interface ListViewModel
 {
     /**
-     * @param Response $reponse
-     *
-     * @return $this
-     */
-    public static function createFromResponse(Response $reponse): self;
-
-    /**
      * @return array
      */
     public function list(): array;

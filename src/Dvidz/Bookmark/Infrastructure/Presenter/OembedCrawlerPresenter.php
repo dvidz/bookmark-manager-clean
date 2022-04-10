@@ -24,7 +24,7 @@ class OembedCrawlerPresenter implements Presenter
      */
     public function present(Response $response): void
     {
-        $this->oembedCrawlerViewModel = OembedCrawlerViewModel::create($response);
+        $this->oembedCrawlerViewModel = OembedCrawlerViewModel::createFromResponse($response);
     }
 
     /**

@@ -35,9 +35,12 @@ class LinkCrawlerService implements UrlCrawler
     public function crawl(string $url): UrlCrawlerResponse
     {
         $extractor = $this->scrapper->get($url);
-        $oEmbed = $extractor->getOEmbed()->all();
 
-        return new UrlCrawlerResponse($oEmbed);
+        $oEmbed = $extractor->getOEmbed()->all();
+        $meta = $extractor->getMetas()->all();
+        $data = array_merge($oEmbed, $meta);
+
+        return new UrlCrawlerResponse($data);
     }
 
     /**
@@ -54,6 +57,6 @@ class LinkCrawlerService implements UrlCrawler
             $meta = $meta[0] ?? null;
         }
 
-        return $meta ?? null;
+        return $meta;
     }
 }
