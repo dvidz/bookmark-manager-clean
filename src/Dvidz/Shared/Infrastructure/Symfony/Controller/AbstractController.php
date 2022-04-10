@@ -21,7 +21,7 @@ abstract class AbstractController extends SymfonyAbstractController
     /**
      * @param CommandBus $commandBus
      */
-    public function __construct(private CommandBus $commandBus, private QueryBus $queryBus, private Presenter $presenter)
+    public function __construct(private ?CommandBus $commandBus, private ?QueryBus $queryBus, private ?Presenter $presenter)
     {
     }
 

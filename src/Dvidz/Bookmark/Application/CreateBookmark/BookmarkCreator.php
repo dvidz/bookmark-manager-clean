@@ -36,18 +36,14 @@ class BookmarkCreator
      * @param int      $height
      * @param int|null $duration
      *
-     * @return Bookmark
-     *
      * @throws UrlException
      */
-    public function bookmark(string $url, string $provider, string $title, string $author, string $publishedAt, string $type, int $width, int $height, ?int $duration): Bookmark
+    public function bookmark(string $url, string $provider, string $title, string $author, string $publishedAt, string $type, int $width, int $height, ?int $duration)
     {
         $url = new Url($url);
         $this->urlSpecification->isValidUrl($url);
 
         $bookmark = Bookmark::bookmark($this->uuid, $url, $provider, $title, $author, $publishedAt, $type, $width, $height, $duration);
         $this->bookmarkRepository->bookmark($bookmark);
-
-        return $bookmark;
     }
 }

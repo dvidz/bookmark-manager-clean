@@ -19,13 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ListBookmarkController extends AbstractController
 {
     /**
-     * @param CommandBus            $commandBus
      * @param ListQueryBus          $queryBus
      * @param BookmarkListPresenter $presenter
      */
-    public function __construct(private CommandBus $commandBus, private ListQueryBus $queryBus, private BookmarkListPresenter $presenter)
+    public function __construct(private ListQueryBus $queryBus, private BookmarkListPresenter $presenter)
     {
-        parent::__construct($this->commandBus, $this->queryBus, $this->presenter);
+        parent::__construct(null, $this->queryBus, $this->presenter);
     }
 
     /**

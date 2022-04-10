@@ -19,15 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BookmarkController extends AbstractController
 {
-    /**
-     * @param BookmarkCommandBus     $commandBus
-     * @param OembedCrawlQueryBus    $queryBus
-     * @param OembedCrawlerPresenter $presenter
-     */
-    public function __construct(private BookmarkCommandBus $commandBus, private OembedCrawlQueryBus $queryBus, private OembedCrawlerPresenter $presenter)
-    {
-        parent::__construct($this->commandBus, $this->queryBus, $this->presenter);
-    }
+        /**
+         * @param BookmarkCommandBus     $commandBus
+         * @param OembedCrawlQueryBus    $queryBus
+         * @param OembedCrawlerPresenter $presenter
+         */
+        public function __construct(private BookmarkCommandBus $commandBus, private OembedCrawlQueryBus $queryBus, private OembedCrawlerPresenter $presenter)
+        {
+            parent::__construct($this->commandBus, $this->queryBus, $this->presenter);
+        }
 
     /**
      * @param Request $request

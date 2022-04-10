@@ -7,3 +7,8 @@ api_bookmark_list:
     path: /api/bookmark
     controller: Api\Bookmark\Controller\ListBookmarkController
     methods:  [GET]
+
+api_bookmark_delete:
+    path: /api/bookmark/{id}
+    controller: Api\Bookmark\Controller\DeleteBookmarkController
+    methods:  [DELETE]

@@ -57,8 +57,6 @@ class BookmarkCommandHandlerTest extends TestCase
         );
 
         $bookmarkCommandHandler = new BookmarkCommandHandler(new BookmarkCreator($repository, new Uuid(), new ValidUrlSpecification()));
-        $bookmark = $bookmarkCommandHandler($command);
-
-        $this->assertNotEmpty($bookmark);
+        $bookmarkCommandHandler($command);
     }
 }
