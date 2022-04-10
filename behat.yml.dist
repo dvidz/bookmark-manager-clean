@@ -8,5 +8,5 @@ default:
         FriendsOfBehat\SymfonyExtension:
             bootstrap: tests/bootstrap.php
             kernel:
-                class: App\Kernel
+                class: Api\Kernel
 
