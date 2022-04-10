@@ -7,9 +7,9 @@ namespace Dvidz\Bookmark\Application\DeleteBookmark;
 use Dvidz\Shared\Domain\Command\Command;
 
 /**
- * Class DeleteBookmarkCommande.
+ * Class DeleteBookmarkCommand.
  */
-class DeleteBookmarkCommande implements Command
+class DeleteBookmarkCommand implements Command
 {
     /**
      * @param string $uuid

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Bookmark\Command;
 
-use Dvidz\Bookmark\Application\DeleteBookmark\DeleteBookmarkCommande;
+use Dvidz\Bookmark\Application\DeleteBookmark\DeleteBookmarkCommand;
 use Dvidz\Bookmark\Application\DeleteBookmark\DeleteBookmarkCommandHandler;
 use Dvidz\Shared\Domain\Command\Command;
 use Dvidz\Shared\Domain\Command\CommandBus;
@@ -30,7 +30,7 @@ class DeleteBookmarkCommandBus implements CommandBus
     {
         $this->bus = new MessageBus([
             new HandleMessageMiddleware(new HandlersLocator([
-                DeleteBookmarkCommande::class => [$deleteBookmarkCommandHandler],
+                DeleteBookmarkCommand::class => [$deleteBookmarkCommandHandler],
             ])),
         ]);
     }

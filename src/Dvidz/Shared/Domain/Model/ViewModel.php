@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dvidz\Shared\Domain\Model;
 
-use Dvidz\Bookmark\Application\CrawlUrl\UrlCrawlerResponse;
 use Dvidz\Shared\Domain\Response\Response;
 
 /**
@@ -13,7 +12,7 @@ use Dvidz\Shared\Domain\Response\Response;
 interface ViewModel
 {
     /**
-     * UrlCrawlerResponse $object
+     * @param Response $response
      *
      * @return static
      */

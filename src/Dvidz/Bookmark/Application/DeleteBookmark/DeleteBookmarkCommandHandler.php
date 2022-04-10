@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Application\DeleteBookmark;
 
-use Dvidz\Shared\Domain\Command\Command;
 use Dvidz\Shared\Domain\Command\CommandHandler;
 
 /**
@@ -20,11 +19,11 @@ class DeleteBookmarkCommandHandler implements CommandHandler
     }
 
     /**
-     * @param DeleteBookmarkCommande $command
+     * @param DeleteBookmarkCommand $command
      *
      * @return void
      */
-    public function __invoke(Command $command): void
+    public function __invoke(DeleteBookmarkCommand $command): void
     {
         $this->bookmarkDeleter->delete($command->uuid);
     }

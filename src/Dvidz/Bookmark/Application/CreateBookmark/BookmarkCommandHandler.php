@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Application\CreateBookmark;
 
-use Dvidz\Shared\Domain\Command\Command;
 use Dvidz\Shared\Domain\Command\CommandHandler;
 
 /**
@@ -20,11 +19,11 @@ class BookmarkCommandHandler implements CommandHandler
     }
 
     /**
-     * @param Command $bookmarkCommand
+     * @param BookmarkCommand $bookmarkCommand
      *
      * @throws \Exception
      */
-    public function __invoke(Command $bookmarkCommand): void
+    public function __invoke(BookmarkCommand $bookmarkCommand): void
     {
         $this->bookmarkCreator->bookmark(
             $bookmarkCommand->url,

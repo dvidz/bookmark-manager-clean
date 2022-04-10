@@ -6,6 +6,9 @@
         <rule ref="./vendor/escapestudios/symfony2-coding-standard/Symfony">
             <exclude name="Symfony.Commenting.License.Warning"/>
             <exclude name="Squiz.Classes.ValidClassName" />
+            <exclude name="Symfony.NamingConventions.ValidClassName.InvalidInterfaceName" />
+            <exclude name="Symfony.NamingConventions.ValidClassName.InvalidAbstractName" />
+            <exclude name="Symfony.Functions.Arguments.Invalid" />
         </rule>
 
         <arg name="basepath" value="."/>

@@ -42,21 +42,4 @@ class LinkCrawlerService implements UrlCrawler
 
         return new UrlCrawlerResponse($data);
     }
-
-    /**
-     * @param Extractor $extractor
-     * @param string    $metaName
-     *
-     * @return string|null
-     */
-    private function extractMetaValue(Extractor $extractor, string $metaName): ?string
-    {
-        $meta = $extractor->getMetas()->get($metaName);
-
-        if (is_array($meta)) {
-            $meta = $meta[0] ?? null;
-        }
-
-        return $meta;
-    }
 }
