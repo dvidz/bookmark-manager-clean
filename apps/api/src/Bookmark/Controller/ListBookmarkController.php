@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Bookmark\Controller;
 
+use Api\Bookmark\Query\ListQueryBus;
 use Dvidz\Bookmark\Application\ListBookmark\ListBookmarkQuery;
 use Dvidz\Bookmark\Infrastructure\Presenter\BookmarkListPresenter;
 use Dvidz\Shared\Domain\Command\CommandBus;
@@ -19,10 +20,10 @@ class ListBookmarkController extends AbstractController
 {
     /**
      * @param CommandBus            $commandBus
-     * @param QueryBus              $queryBus
+     * @param ListQueryBus          $queryBus
      * @param BookmarkListPresenter $presenter
      */
-    public function __construct(private CommandBus $commandBus, private QueryBus $queryBus, private BookmarkListPresenter $presenter)
+    public function __construct(private CommandBus $commandBus, private ListQueryBus $queryBus, private BookmarkListPresenter $presenter)
     {
         parent::__construct($this->commandBus, $this->queryBus, $this->presenter);
     }

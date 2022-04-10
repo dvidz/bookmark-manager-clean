@@ -1,7 +1,7 @@
 api_bookmark:
     path: /api/bookmark
     controller: Api\Bookmark\Controller\BookmarkController
-    methods:  [GET]
+    methods:  [POST]
 
 api_bookmark_list:
     path: /api/bookmark/list
