@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://github.com/dvidz"><img src="https://img.shields.io/badge/Dvidz-Github-green.svg?style=flat-square" alt="dvidz"/></a>
-    <a href="#"><img src="https://img.shields.io/badge/Symfony-5.4-purple.svg?style=flat-square&logo=symfony" alt="Symfony 6.0"/></a>
+    <a href="#"><img src="https://img.shields.io/badge/Symfony-6.0-purple.svg?style=flat-square&logo=symfony" alt="Symfony 6.0"/></a>
     <a href="https://github.com/dvidz/bookmark-manager/actions"><img src="https://github.com/dvidz/bookmark-manager-clean/workflows/CI/badge.svg?branch=main" alt="CI pipeline status" /></a>
 </p>
 
