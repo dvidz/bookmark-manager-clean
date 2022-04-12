@@ -17,4 +17,11 @@ interface BookmarkRepository
      * @return void
      */
     public function bookmark(Bookmark $bookmark): void;
+
+    /**
+     * @param string $url
+     *
+     * @return Bookmark|null
+     */
+    public function findOneByUrl(string $url): ?Bookmark;
 }

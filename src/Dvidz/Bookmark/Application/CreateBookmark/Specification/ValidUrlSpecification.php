@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dvidz\Bookmark\Infrastructure\Specification;
+namespace Dvidz\Bookmark\Application\CreateBookmark\Specification;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
