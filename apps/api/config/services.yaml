@@ -20,6 +20,10 @@ services:
         resource: '../src/Bookmark/Controller'
         tags: [ 'controller.service_arguments' ]
 
+    Api\Human\Controller\:
+        resource: '../src/Human/Controller'
+        tags: [ 'controller.service_arguments' ]
+
     Dvidz\:
         resource: '../../../src/Dvidz'
 
@@ -32,6 +36,22 @@ services:
     # please note that last definitions always *replace* previous ones
     Embed\Embed:
 
-    ### REPOSITORY ###
+    ###> REPOSITORY ###
     Dvidz\Bookmark\Domain\Repository\BookmarkRepository: '@Api\Bookmark\Repository\BookmarkRepository'
     ##################
+
+    ### BUS ###
+    _instanceof:
+        # All services implementing the CommandHandler interface from the domain
+        # will be registered on the command.bus bus who he's apply the transactional middleware "doctrine_transaction".
+        # @see apps/api/config/package/messenger.yaml
+        Dvidz\Shared\Domain\Command\CommandHandler:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        # All services implementing the QueryHandler interface from the domain
+        # will be registered on the query.bus bus who he's apply the stack middleware dedicated to query.bus.
+        # @see apps/api/config/package/messenger.yaml
+        Dvidz\Shared\Domain\Query\QueryHandler:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }

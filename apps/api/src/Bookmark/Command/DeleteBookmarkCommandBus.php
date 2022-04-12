@@ -19,20 +19,10 @@ use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 class DeleteBookmarkCommandBus implements CommandBus
 {
     /**
-     * @var MessageBusInterface
+     * @param MessageBusInterface $commandBus
      */
-    private MessageBusInterface $bus;
-
-    /**
-     * @param DeleteBookmarkCommandHandler $deleteBookmarkCommandHandler
-     */
-    public function __construct(DeleteBookmarkCommandHandler $deleteBookmarkCommandHandler)
+    public function __construct(private MessageBusInterface $commandBus)
     {
-        $this->bus = new MessageBus([
-            new HandleMessageMiddleware(new HandlersLocator([
-                DeleteBookmarkCommand::class => [$deleteBookmarkCommandHandler],
-            ])),
-        ]);
     }
 
 
@@ -43,6 +33,6 @@ class DeleteBookmarkCommandBus implements CommandBus
      */
     public function dispatch(Command $command): void
     {
-        $this->bus->dispatch($command);
+        $this->commandBus->dispatch($command);
     }
 }
