@@ -1,0 +1,4 @@
+api_human:
+    path: /api/human
+    controller: Api\Human\Controller\CreateHumanController
+    methods:  [POST]
