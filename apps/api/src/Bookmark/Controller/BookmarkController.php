@@ -7,12 +7,11 @@ use Api\Bookmark\Query\OembedCrawlQueryBus;
 use Dvidz\Bookmark\Application\CrawlUrl\UrlCrawlerQuery;
 use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommand;
 use Dvidz\Bookmark\Infrastructure\Presenter\OembedCrawlerPresenter;
-use Dvidz\Shared\Domain\Command\CommandBus;
-use Dvidz\Shared\Domain\Query\QueryBus;
 use Dvidz\Shared\Infrastructure\Symfony\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class BookmarkController.
@@ -30,20 +29,19 @@ class BookmarkController extends AbstractController
     }
 
     /**
-     * @param Request $request
+     * @param Request             $request
+     * @param SerializerInterface $serializer
      *
      * @return Response
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, SerializerInterface $serializer): Response
     {
-        if (null === $url = $request->request->get('url')) {
-            //TODO: throw an exception. Catch them from Kernel Event.
-        }
+        $urlCrawlerQuery = $serializer->deserialize($request->getContent(), UrlCrawlerQuery::class, 'json');
+        $oEmbedViewModel = $this->ask($urlCrawlerQuery);
 
-        $oEmbedViewModel = $this->ask(new UrlCrawlerQuery($url));
         $this->dispatch(
             new BookmarkCommand(
-                $url,
+                $oEmbedViewModel->url ?? $urlCrawlerQuery->url,
                 $oEmbedViewModel->provider,
                 $oEmbedViewModel->title,
                 $oEmbedViewModel->author,

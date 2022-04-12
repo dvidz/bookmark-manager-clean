@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Api\Bookmark\Command;
+namespace Api\Human\Command;
 
 use Dvidz\Shared\Domain\Command\Command;
 use Dvidz\Shared\Domain\Command\CommandBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
- * Class BookmarkCommandBus.
+ * Class CreateHumainCommandBus.
  */
-class BookmarkCommandBus implements CommandBus
+class CreateHumainCommandBus implements CommandBus
 {
     /**
      * @param MessageBusInterface $commandBus
