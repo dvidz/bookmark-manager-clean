@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Bookmark\Bus\Command;
 
 use Api\Bookmark\Repository\BookmarkRepository;
+use Api\Bookmark\Repository\InMemoryBookmarkRepository;
 use Api\Kernel;
 use Doctrine\Persistence\ManagerRegistry;
 use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommand;
 use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCommandHandler;
 use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCreator;
-use Dvidz\Bookmark\Domain\Entity\Bookmark;
-use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
+use Dvidz\Bookmark\Application\CreateBookmark\Specification\UniqueUrlSpecification;
+use Dvidz\Bookmark\Application\CreateBookmark\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -40,12 +41,11 @@ class BookmarkCommandHandlerTest extends TestCase
         $kernel = new Kernel('test', true);
         $kernel->boot();
 
-        /** @var ManagerRegistry $managerRegistry */
-        $managerRegistry = $kernel->getContainer()->get('doctrine');
-        $repository = new BookmarkRepository($managerRegistry);
+        $repository = new InMemoryBookmarkRepository();
 
+        $urlId = rand(1, 100000000);
         $command = new BookmarkCommand(
-            'https://vimeo.com/345678/',
+            'https://vimeo.com/'.$urlId,
             'Vimeo',
             'Super Title',
             'Super author',
@@ -56,7 +56,15 @@ class BookmarkCommandHandlerTest extends TestCase
             125
         );
 
-        $bookmarkCommandHandler = new BookmarkCommandHandler(new BookmarkCreator($repository, new Uuid(), new ValidUrlSpecification()));
+        $bookmarkCommandHandler = new BookmarkCommandHandler(
+            new BookmarkCreator(
+                $repository,
+                new Uuid(),
+                new ValidUrlSpecification(),
+                New UniqueUrlSpecification($repository)
+            )
+        );
+
         $bookmarkCommandHandler($command);
     }
 }

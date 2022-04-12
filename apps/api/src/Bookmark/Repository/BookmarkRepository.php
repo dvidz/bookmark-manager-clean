@@ -24,6 +24,18 @@ class BookmarkRepository extends BaseRepository implements DomainBookmarkReposit
     }
 
     /**
+     * @param string $url
+     *
+     * @return Bookmark|null
+     */
+    public function findOneByUrl(string $url): ?Bookmark
+    {
+        return $this->findOneBy([
+            'url.value' => $url,
+        ]);
+    }
+
+    /**
      * @return string
      */
     protected function className(): string
