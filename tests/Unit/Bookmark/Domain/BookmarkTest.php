@@ -6,6 +6,8 @@ namespace App\Tests\Unit\Bookmark\Domain;
 
 use Api\Bookmark\Repository\InMemoryBookmarkRepository;
 use Dvidz\Bookmark\Application\CreateBookmark\BookmarkCreator;
+use Dvidz\Bookmark\Application\CreateBookmark\Specification\UniqueUrlSpecification;
+use Dvidz\Bookmark\Application\CreateBookmark\Specification\ValidUrlSpecification;
 use Dvidz\Bookmark\Domain\Entity\Bookmark;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Author;
 use Dvidz\Bookmark\Domain\Entity\ValueType\BookmarkedAt;
@@ -16,7 +18,6 @@ use Dvidz\Bookmark\Domain\Entity\ValueType\Title;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Type;
 use Dvidz\Bookmark\Domain\Entity\ValueType\Url;
 use Dvidz\Bookmark\Domain\Exception\UrlException;
-use Dvidz\Bookmark\Infrastructure\Specification\ValidUrlSpecification;
 use Dvidz\Shared\Infrastructure\Uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -122,7 +123,7 @@ class BookmarkTest extends TestCase
         $this->expectException(UrlException::class);
 
         $badUrl = 'badurl';
-        $bookmarkCreator = new BookmarkCreator(new InMemoryBookmarkRepository(), new Uuid(), new ValidUrlSpecification());
+        $bookmarkCreator = new BookmarkCreator(new InMemoryBookmarkRepository(), new Uuid(), new ValidUrlSpecification(), New UniqueUrlSpecification(new InMemoryBookmarkRepository()));
 
         $data = $this->getBookmarkTypeVideoData();
         $bookmarkCreator->bookmark($badUrl, $data['provider'], $data['title'], $data['author'], $data['publishedAt'], $data['type'], $data['width'], $data['height'], $data['duration']);

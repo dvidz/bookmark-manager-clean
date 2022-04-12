@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Dvidz\Bookmark\Application\CreateBookmark;
 
+use Dvidz\Bookmark\Domain\Exception\UrlAlreadyBookmarkedException;
+use Dvidz\Bookmark\Domain\Exception\UrlException;
 use Dvidz\Shared\Domain\Command\CommandHandler;
 
 /**
@@ -21,7 +23,9 @@ class BookmarkCommandHandler implements CommandHandler
     /**
      * @param BookmarkCommand $bookmarkCommand
      *
-     * @throws \Exception
+     * @return void
+     *
+     * @throws UrlException|UrlAlreadyBookmarkedException
      */
     public function __invoke(BookmarkCommand $bookmarkCommand): void
     {

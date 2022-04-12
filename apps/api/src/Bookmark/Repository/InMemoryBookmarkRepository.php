@@ -28,11 +28,21 @@ class InMemoryBookmarkRepository implements DomainBookmarkRepository
     }
 
     /**
+     * @param string $url
+     *
+     * @return Bookmark|null
+     */
+    public function findOneByUrl(string $url): ?Bookmark
+    {
+        return null;
+    }
+
+    /**
      * @param string $uuid
      *
      * @return Bookmark
      */
-    public function getBookmark(string $uuid)
+    public function getBookmark(string $uuid): Bookmark
     {
         return $this->bookmarks[$uuid];
     }
