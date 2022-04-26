@@ -20,10 +20,6 @@ services:
         resource: '../src/Bookmark/Controller'
         tags: [ 'controller.service_arguments' ]
 
-    Api\Human\Controller\:
-        resource: '../src/Human/Controller'
-        tags: [ 'controller.service_arguments' ]
-
     Dvidz\:
         resource: '../../../src/Dvidz'
 
